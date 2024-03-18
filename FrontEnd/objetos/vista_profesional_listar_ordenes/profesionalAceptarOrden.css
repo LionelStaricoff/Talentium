@@ -1,5 +1,5 @@
 .aceptarOrden {
-
+  z-index: 10;
   max-width: 300px;
   width: 300px;
   height: 350px;
@@ -7,7 +7,7 @@
   grid-template-rows: 3;
   gap: 15px;
   background-color: var(--azul_principal);
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.8);
   padding: 30px;
   position: absolute;
@@ -31,11 +31,11 @@
   input {
     display: inline;
     text-align: center;
-    border-radius: 15px;
-    width: 50%;
+    border-radius: 8px;
+    width: 80%;
     margin: 0 auto;
     margin-bottom: 1em;
-    opacity: 50%;
+    background-color: var(--azul_masClaro);
   }
 
   button {
@@ -45,7 +45,8 @@
     border-radius: 8px;
     max-width: 100%;
     max-height: fit-content;
-    box-shadow: 0px 1px 1px 1px black;
+    box-shadow: 0px 1px 1px 1px rgba(248, 247, 247, 0.631);
+    background-color: var(--azul_oscuro);
     border: none;
 
     &:hover {
