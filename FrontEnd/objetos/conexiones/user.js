@@ -9,7 +9,7 @@ export class User {
         this.avatar = avata ?? '';
 
     }
-    async conexionApi() {
+    conexionApi() {
 
 
         const url = 'http://localhost:8080/usuarios';
@@ -21,13 +21,13 @@ export class User {
 
 
 
-        const response = await fetch(url, {
+        fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(userData)
-        }).then(response => response.text())
+        }).then(response => response.json())
             .then(data => {
                 Util.guardarLogin(data);
                 Util.guardarAuthorization(data.password);
@@ -55,18 +55,20 @@ export class User {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(userData)
-        }).then(response => response.text())
+        }).then(response => response.json())
             .then(data => {
                 Util.guardarLogin(data);
           
                 Util.guardarAuthorization(data.password);
-       
-                if (data.name === null) Util.cambiarDePagina('sitio_del_cliente.html');
+             
+                if (data.name === null) {
+                    Util.cambiarDePagina('sitio_del_cliente.html');
+                } else {
 
-                Util.guardarAuthorization(data.lastname);
-           
-                Util.cambiarDePagina('invitaAregistrar.html');
-
+                    Util.guardarAuthorization(data.lastname);
+                
+                    Util.cambiarDePagina('invitaAregistrar.html');
+                }
             }
             ).catch(err => {
                 new cartelAviso('Ups!! algo salio mal, intenta más tarde');

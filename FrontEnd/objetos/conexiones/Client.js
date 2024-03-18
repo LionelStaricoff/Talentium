@@ -19,9 +19,7 @@ export class Client {
     }
 
 
-    async conexionApi() {
-
-        
+     conexionApi() {
 
         const url = 'http://localhost:8080/api/client';
         const userData = {
@@ -29,19 +27,20 @@ export class Client {
             lastname: this.lastname,
             dni: this.dni,
             phone: this.phone,
-            user: this.user,
+            user: this.user.id,
             direction: this.direction
         };
 
-        const response = await fetch(url, {
+         fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
-                //'Authorization': `Bearer ${jwtToken}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
             body: JSON.stringify(userData)
         }).then(response => response.json())
             .then(data => {
+                alert(data)
                 Util.guardarLogin(data);
                 Util.cambiarDePagina('sitio_del_cliente.html'); 
             }
