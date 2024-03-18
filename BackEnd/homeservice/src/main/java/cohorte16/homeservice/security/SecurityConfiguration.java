@@ -26,8 +26,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
        return   httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/usuarios/**").permitAll()
-                      // .anyRequest().authenticated()
-                                .anyRequest().permitAll()
+                      .anyRequest().authenticated()
+                               //.anyRequest().permitAll()
                         )
                  .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                .build();
