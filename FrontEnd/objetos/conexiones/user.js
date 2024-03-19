@@ -31,6 +31,7 @@ export class User {
             .then(data => {
                 Util.guardarLogin(data);
                 Util.guardarAuthorization(data.password);
+                Util.guardarImagen(data.avatar);
                 Util.cambiarDePagina('invitaAregistrar.html');
             }
             ).catch(err => {
