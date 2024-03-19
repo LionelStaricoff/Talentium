@@ -59,7 +59,7 @@ export class User {
         }).then(response => response.json())
             .then(data => {
                 Util.guardarLogin(data);
-                //  alert('data: ' + data.name)
+                 // alert('data: ' + data.password)
                 Util.guardarAuthorization(data.password);
                 const usuariodb = data.name ?? null;
                 if (usuariodb !== null) {
@@ -72,6 +72,7 @@ export class User {
                 }
             }
             ).catch(err => {
+           
                 new cartelAviso('Ups!! Algo salió mal, intenta más tarde');
             });
         /* buscando el jwt en el header

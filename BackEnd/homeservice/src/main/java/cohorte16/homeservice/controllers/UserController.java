@@ -52,8 +52,7 @@ public class UserController {
     @Autowired
     private TokenService tokenService;
 
-@Autowired
-PasswordEncoder passwordEncoder;
+
 
     @PostMapping
     public ResponseEntity<?> RegistrarUsuario(@RequestBody @Valid RegistroUsuarioDTO registroUsuarioDTO){
@@ -71,7 +70,7 @@ PasswordEncoder passwordEncoder;
 
         try {
           userCreated =  userServiceImpl.saveUser(registroUsuarioDTO);
-            authToken = new UsernamePasswordAuthenticationToken(registroUsuarioDTO.email(), passwordEncoder.encode(registroUsuarioDTO.password() ));
+            authToken = new UsernamePasswordAuthenticationToken(registroUsuarioDTO.email(), EncryptData.encryptPassword(registroUsuarioDTO.password() ));
             user = new User(userCreated.getId(),userCreated.getEmail(),userCreated.getPassword(),null);
             JWToken = tokenService.generarToken(user);
             jwtToken.set("Authorization",JWToken);
@@ -109,7 +108,7 @@ PasswordEncoder passwordEncoder;
         try {
             userCreated = userServiceImpl.validateLogin(datosLogin);
 
-           authToken = new UsernamePasswordAuthenticationToken(datosLogin.email(), passwordEncoder.encode(datosLogin.password() ));
+           authToken = new UsernamePasswordAuthenticationToken(datosLogin.email(),  EncryptData.encryptPassword(datosLogin.password() ));
               user = new User(userCreated.getId(),userCreated.getEmail(),userCreated.getPassword(),null);
               JWToken = tokenService.generarToken(user);
              jwtToken.set("Authorization",JWToken);

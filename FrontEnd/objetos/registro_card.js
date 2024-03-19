@@ -22,7 +22,7 @@ registrarse.addEventListener('click',  () => {
 
   if (inputs[0].value != '' && inputs[1].value != '') {
 
-    const userCreado = new User(inputs[0].value,inputs[0].value, Util.reuperarImagen());
+    const userCreado = new User(inputs[0].value,inputs[1].value, Util.reuperarImagen());
 
     userCreado.conexionApi();
   
