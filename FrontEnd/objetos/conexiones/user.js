@@ -34,7 +34,7 @@ export class User {
                 Util.cambiarDePagina('invitaAregistrar.html');
             }
             ).catch(err => {
-                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde');
             });
 
 
