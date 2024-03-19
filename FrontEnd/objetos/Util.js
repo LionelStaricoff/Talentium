@@ -141,26 +141,25 @@ export class Util {
         console.log(clientDb)
         if (clientDb.lastname !== null) Util.cambiarDePagina('sitio_del_cliente.html');
     }
-    static updateFileName(inpu) {
-        const fileInput = inpu;
-        const fileNameContainer = document.getElementById('file-name-container');
 
+
+    static  updateFileName() {
+        const fileInput =  document.getElementById('file-input');
+        const fileNameContainer =  document.getElementById('file-name-container');
+    
         // Verificar si se seleccionó un archivo
         if (fileInput.files.length > 0) {
-
             // Mostrar el nombre del archivo seleccionado
-            fileNameContainer.textContent = `Archivo: ${fileInput.files[0].name}`;
-           
-
-
+            fileNameContainer.textContent =  `Archivo: ${fileInput.files[0].name}`;
+    
         } else {
             // Limpiar el contenido si no se seleccionó ningún archivo
-            fileNameContainer.textContent = '';
+            fileNameContainer.textContent =  '';
         }
     }
 
     static guardarImagen64(input) {
-        location.reload();
+    
         const fileInput = input;
 
         const file = fileInput.files[0];

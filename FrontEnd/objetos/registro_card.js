@@ -4,7 +4,7 @@ import { Util } from './Util.js';
 
 // accion para sacar la imagen
 const fileInput = document.getElementById('file-input');
-fileInput.addEventListener('change',  Util.updateFileName(fileInput));
+fileInput.addEventListener('change',  ()=> Util.updateFileName());
 fileInput.addEventListener('change', ()=> Util.guardarImagen64(fileInput));
 
 
