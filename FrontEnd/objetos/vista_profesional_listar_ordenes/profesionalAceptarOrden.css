@@ -6,9 +6,9 @@
   display: grid;
   grid-template-rows: 3;
   gap: 15px;
-  background-color: var(--azul_principal);
+  background-color: var(--azul_claro);
   border-radius: 8px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.8);
+  box-shadow: 0px 5px 10px 10px rgba(0, 0, 0, 0.8);
   padding: 30px;
   position: absolute;
   top: 50%;
@@ -35,7 +35,7 @@
     width: 80%;
     margin: 0 auto;
     margin-bottom: 1em;
-    background-color: var(--azul_masClaro);
+    background-color: var(--azul_clarisimo);
   }
 
   button {
