@@ -34,7 +34,7 @@ export class User {
                 Util.cambiarDePagina('invitaAregistrar.html');
             }
             ).catch(err => {
-                new cartelAviso('Ups!! algo salio mal, intenta más tarde');
+                new cartelAviso('Ups!! Algo salió mal, intenta más tarde');
             });
 
 
@@ -58,20 +58,20 @@ export class User {
         }).then(response => response.json())
             .then(data => {
                 Util.guardarLogin(data);
-          
+              //  alert('data' + data.avatar)
                 Util.guardarAuthorization(data.password);
-             
+
                 if (data.name === null) {
                     Util.cambiarDePagina('sitio_del_cliente.html');
                 } else {
 
                     Util.guardarAuthorization(data.lastname);
-                
+                    Util.guardarImagen(data.avatar);
                     Util.cambiarDePagina('invitaAregistrar.html');
                 }
             }
             ).catch(err => {
-                new cartelAviso('Ups!! algo salio mal, intenta más tarde');
+                new cartelAviso('Ups!! Algo salió mal, intenta más tarde');
             });
         /* buscando el jwt en el header
                for ([key, value] of response.headers.entries()) {
