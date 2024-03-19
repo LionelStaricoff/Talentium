@@ -18,11 +18,11 @@ registrarse.addEventListener('click',  () => {
 
   const inputs = document.querySelectorAll('input');
 
-alert(Util.reuperarImagen())
+
 
   if (inputs[0].value != '' && inputs[1].value != '') {
 
-    const userCreado = new User(inputs[0].value, Util.reuperarImagen());
+    const userCreado = new User(inputs[0].value,inputs[0].value, Util.reuperarImagen());
 
     userCreado.conexionApi();
   
