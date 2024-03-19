@@ -182,7 +182,7 @@ export class Util {
     }
 
     static volverUltimaPagina() {
-        var ultimaPaginaVisitada = localStorage.getItem('ultimaPaginaVisitada');
+        let ultimaPaginaVisitada = localStorage.getItem('ultimaPaginaVisitada');
 
         if (ultimaPaginaVisitada !== null) {
             window.location.href = ultimaPaginaVisitada;
