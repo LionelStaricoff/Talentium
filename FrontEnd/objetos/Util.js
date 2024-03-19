@@ -138,8 +138,9 @@ export class Util {
     static existLoginClient() {
         Util.existLogin();
         const clientDb = Util.reuperarLogin();
-        console.log(clientDb)
-        if (clientDb.lastname !== null) Util.cambiarDePagina('sitio_del_cliente.html');
+        alert(clientDb);
+        const VerificarclienteDB = clientDb.lastname ?? null;
+        if ( VerificarclienteDB !== null) Util.cambiarDePagina('sitio_del_cliente.html');
     }
 
 
@@ -189,6 +190,10 @@ export class Util {
         } else {
             window.location.href = 'index.html';
         }
+    }
+
+    static borrarSession() {
+        sessionStorage.clear();
     }
 }
 

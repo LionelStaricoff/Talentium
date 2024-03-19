@@ -9,3 +9,6 @@ logoUser.src = imagen;
 
 const volverbutton = document.querySelector('#volverbutton');
 volverbutton.addEventListener('click', ()=> Util.volverUltimaPagina());
+
+const cerrarSesion = document.querySelector('#cerrarSesion');
+cerrarSesion.addEventListener('click', ()=> Util.cerrarSesion() );

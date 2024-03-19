@@ -58,10 +58,10 @@ export class User {
         }).then(response => response.json())
             .then(data => {
                 Util.guardarLogin(data);
-              //  alert('data' + data.avatar)
+                //  alert('data: ' + data.name)
                 Util.guardarAuthorization(data.password);
-
-                if (data.name === null) {
+                const usuariodb = data.name ?? null;
+                if (usuariodb !== null) {
                     Util.cambiarDePagina('sitio_del_cliente.html');
                 } else {
 
