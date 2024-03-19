@@ -1,5 +1,7 @@
 import {Util} from './Util.js'
 
+Util.existLogin();
+
 if(Util.reuperarImagen() !== null){
 const imagen = Util.reuperarImagen() ;
 
@@ -11,4 +13,4 @@ const volverbutton = document.querySelector('#volverbutton');
 volverbutton.addEventListener('click', ()=> Util.volverUltimaPagina());
 
 const cerrarSesion = document.querySelector('#cerrarSesion');
-cerrarSesion.addEventListener('click', ()=> Util.cerrarSesion() );
+cerrarSesion.addEventListener('click', ()=> Util.borrarSession() );

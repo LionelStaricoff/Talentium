@@ -138,7 +138,6 @@ export class Util {
     static existLoginClient() {
         Util.existLogin();
         const clientDb = Util.reuperarLogin();
-        alert(clientDb);
         const VerificarclienteDB = clientDb.lastname ?? null;
         if ( VerificarclienteDB !== null) Util.cambiarDePagina('sitio_del_cliente.html');
     }
@@ -194,6 +193,7 @@ export class Util {
 
     static borrarSession() {
         sessionStorage.clear();
+     
     }
 }
 
