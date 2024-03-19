@@ -40,7 +40,7 @@ export class Client {
             body: JSON.stringify(userData)
         }).then(response => response.json())
             .then(data => {
-                alert(data)
+              
                 Util.guardarLogin(data);
                 Util.cambiarDePagina('sitio_del_cliente.html'); 
             }

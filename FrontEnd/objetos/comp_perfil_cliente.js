@@ -12,7 +12,7 @@ try {
       
 
         let user = Util.reuperarLogin();
-        console.log(user)
+       // console.log(user)
         let cliente = new Client(inputs[2].value, inputs[3].value, inputs[4].value,
             inputs[5].value, user,
             inputs[6].value, inputs[7].value, inputs[8].value, inputs[9].value);

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="img/Icon.ico" type="icon">
     <link rel="stylesheet" href="css/registro_card.css">
-    <script type="module" src="objetos/registro_card.js"></script>
+    <script type="module" src="objetos/registro_card.js" defer></script>
     <title>Talentium - Registro_Card</title>
 </head>
 
@@ -32,18 +32,13 @@
 
             <div class="file-input-container">
                 <label for="file-input" class="file-input-label">Elegir Archivo</label>
-                <input type="file" id="file-input" onchange="updateFileName()">
+                <input type="file" id="file-input" > <!--onchange="updateFileName()"-->
                 <div id="file-name-container"></div>
             </div>
         </div>
         <a class="login_button" >Registrarse</a>
     </div>
     </div>
-    
-
-    <script src="./objetos/volver.js"></script>
-<script type="module" src="objetos/updateFileName(registro_card).js"></script>
-<script type="module" src="objetos/loader/loader.js"></script>
 
 </body>
 

@@ -7,8 +7,10 @@ function updateFileName() {
     if (fileInput.files.length > 0) {
         // Mostrar el nombre del archivo seleccionado
         fileNameContainer.textContent = `Archivo: ${fileInput.files[0].name}`;
+
     } else {
         // Limpiar el contenido si no se seleccionó ningún archivo
         fileNameContainer.textContent = '';
     }
 }
+

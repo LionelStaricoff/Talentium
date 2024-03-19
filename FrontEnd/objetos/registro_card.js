@@ -2,6 +2,15 @@ import { User } from './conexiones/user.js';
 import { cartelAviso } from './cartel_aceptar_cancelar/cartelAviso.js';
 import { Util } from './Util.js';
 
+// accion para sacar la imagen
+const fileInput = document.getElementById('file-input');
+fileInput.addEventListener('change',  ()=> Util.updateFileName());
+fileInput.addEventListener('change', ()=> Util.guardarImagen64(fileInput));
+
+
+
+
+
 
 const registrarse = document.querySelector('.login_button');
 
@@ -13,7 +22,7 @@ registrarse.addEventListener('click',  () => {
 
   if (inputs[0].value != '' && inputs[1].value != '') {
 
-    const userCreado = new User(inputs[0].value, inputs[1].value, inputs[2].value);
+    const userCreado = new User(inputs[0].value,inputs[1].value, Util.reuperarImagen());
 
     userCreado.conexionApi();
   
