@@ -22,8 +22,15 @@
         <div class="login_card">
             <img src="img/NoAvatar.png" alt="avatar" class="avatar">
             <input type="email" id="email" placeholder="Ingrese su e-mail" required>
-            <input type="password" id="password" placeholder="Ingrese su contraseña" required>
-
+            
+            <!-- <div class="password_container"> -->
+                <input type="password" id="password" placeholder="Ingrese su contraseña" required>
+                <div class="eye_container">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                    
+                </div>
+            <!-- </div> -->
             <button class="login_button"><a id="login">Ingresar</a></button>
         </div>
     </div>
@@ -33,5 +40,18 @@
 </body>
 <script type="module" src="objetos/login.js" defer></script>
 <script type="module" src="objetos/loader/loader.js"></script>
+<script type="text/javascript">
+    document.querySelector('body').addEventListener('mousemove', eyeball);
+    function eyeball() {
+        const eye = document.querySelectorAll('.eye');
+        eye.forEach(function (eye) {
+            let x = (eye.getBoundingClientRect().left) + (eye.clientWidth / 2);
+            let y = (eye.getBoundingClientRect().top) + (eye.clientHeight / 2);
+            let radian = Math.atan2(event.pageX - x, event.pageY - y);
+            let rotation = (radian * (180 / Math.PI) * -1) + 90;
+            eye.style.transform = "rotate(" + rotation + "deg)"
 
+        });
+    }
+</script>
 </html>
