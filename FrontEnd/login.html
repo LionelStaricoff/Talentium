@@ -23,23 +23,24 @@
             <img src="img/NoAvatar.png" alt="avatar" class="avatar">
             <input type="email" id="email" placeholder="Ingrese su e-mail" required>
             
-            <!-- <div class="password_container"> -->
                 <input type="password" id="password" placeholder="Ingrese su contraseña" required>
-                <div class="eye_container">
+                <div class="eye_container open" onclick="togglePasswordVisibility()">
                     <div class="eye"></div>
                     <div class="eye"></div>
                     
                 </div>
-            <!-- </div> -->
             <button class="login_button"><a id="login">Ingresar</a></button>
         </div>
     </div>
 
     <script src="objetos/volver.js"></script>
 
-</body>
+
 <script type="module" src="objetos/login.js" defer></script>
 <script type="module" src="objetos/loader/loader.js"></script>
+
+
+
 <script type="text/javascript">
     document.querySelector('body').addEventListener('mousemove', eyeball);
     function eyeball() {
@@ -53,5 +54,36 @@
 
         });
     }
+
 </script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const passwordInput = document.getElementById('password');
+    const eyeContainer = document.querySelector('.eye_container');
+
+
+    // Función para cambiar el tipo de entrada del campo de contraseña y controlar los ojitos
+    function togglePasswordVisibility() {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeContainer.classList.add('open');
+        } else {
+            passwordInput.type = 'password';
+            eyeContainer.classList.remove('open');
+        }
+    }
+
+    // Evento para cambiar la visibilidad de la contraseña al hacer clic en los ojitos
+    eyeContainer.addEventListener('click', togglePasswordVisibility);
+
+    // Evento para cerrar los ojitos cuando el usuario escribe en el campo de contraseña
+    passwordInput.addEventListener('input', () => {
+        eyeContainer.classList.remove('open');
+    });  
+});
+
+</script>
+
+</body>
 </html>
