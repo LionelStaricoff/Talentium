@@ -1,6 +1,6 @@
 import {Util} from './Util.js'
 
-Util.existLogin();
+//Util.existLogin();
 
 if(Util.reuperarImagen() !== null){
 const imagen = Util.reuperarImagen() ;
