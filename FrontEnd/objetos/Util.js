@@ -139,7 +139,7 @@ export class Util {
         Util.existLogin();
         const clientDb = Util.reuperarLogin();
         const VerificarclienteDB = clientDb.lastname ?? null;
-        if ( VerificarclienteDB !== null) Util.cambiarDePagina('sitio_del_cliente.html');
+        if (VerificarclienteDB !== null) Util.cambiarDePagina('sitio_del_cliente.html');
     }
 
 
@@ -181,8 +181,13 @@ export class Util {
         return sessionStorage.getItem('imagen');
     }
 
+    static guardarPaginaActual() {
+        var currentURL = window.location.href;
+        sessionStorage.setItem('ultimaPaginaVisitada', currentURL);
+    }
+
     static volverUltimaPagina() {
-        var ultimaPaginaVisitada = localStorage.getItem('ultimaPaginaVisitada');
+        var ultimaPaginaVisitada = sessionStorage.getItem('ultimaPaginaVisitada');
 
         if (ultimaPaginaVisitada !== null) {
             window.location.href = ultimaPaginaVisitada;
@@ -193,7 +198,7 @@ export class Util {
 
     static borrarSession() {
         sessionStorage.clear();
-     
+
     }
 }
 
