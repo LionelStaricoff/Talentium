@@ -26,7 +26,7 @@ export class EfectosPassword {
 };
 document.addEventListener('DOMContentLoaded', () => {
     const passwordInput = document.getElementById('password');
-    const eyeContainer = document.querySelector('.eye_container');
+    const eyeContainer = document.getElementById('eye_container');
 
 
     // Evento para cambiar la visibilidad de la contraseña al hacer clic en los ojitos

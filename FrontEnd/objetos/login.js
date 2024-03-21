@@ -24,7 +24,7 @@ registrarse.addEventListener('click',  () => {
 
 
   } else {
-    new cartelAviso('Los campos usuario y contraseña no deben estar vacíos')
+    new cartelAviso('Los campos email y contraseña no deben estar vacíos')
 
   }
 
