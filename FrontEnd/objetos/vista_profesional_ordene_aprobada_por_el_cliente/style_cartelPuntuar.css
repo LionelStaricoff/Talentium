@@ -1,34 +1,74 @@
-#CartelPuntuar {
-    width: 20em;
-    height: 15em;
-    background-color: black;
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    transform: translate(10%, 50%);
-    color: aliceblue;
-    text-align: center;
-    display: grid;
-    place-content: center;
-    border-radius: 15px;
-    border: 2px solid wheat;
+@import url("../../css/style.css");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 10px;
+}
 
+.containerRating {
+  display: grid;
+  place-content: center;
+  padding: 2rem;
+  text-align: center;
+  height: 200px;
+  width: 300px;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  z-index: 10;
+}
+.containerRating::after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black
+    no-repeat center center / cover;
+  filter: blur(7px) brightness(70%);
+}
+.info {
+  margin-bottom: 2rem;
 
-    div {
-        margin: 1em;
-    }
+}
+.emoji {
+  font-size: 3rem;
+  height: 35px;
+  margin-bottom: 2rem;
+}
+.status {
+  font-size: 1.5rem;
+  color: honeydew;
+  line-height: 1.3em;
+}
+.stars {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+.star {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+}
+.star svg {
+  fill: none;
+  width: 100%;
+  height: 100%;
+  stroke: none;
+  fill: gray;
+}
 
-    div:last-child {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        gap: 10px;
-
-        button {
-            background-color: yellow;
-            border-color: aliceblue;
-            border-radius: 15px;
-            
-        }
-    }
+.selected svg,
+.selected ~ .star svg {
+  fill: #ffc107;
+}
+.star:hover svg,
+.star:hover ~ .star svg {
+  fill: gold;
 }
