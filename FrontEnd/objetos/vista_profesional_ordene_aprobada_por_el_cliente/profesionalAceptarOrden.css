@@ -1,5 +1,5 @@
 .aceptarOrden {
-  box-shadow: 1px 1px 1px 2px black;
+  box-shadow: 1px 1px 1px 2px var(--shadow-color);
   border-radius: 15px;
   width: min(20em, 100%);
   height: min(100%, 15em);
@@ -12,6 +12,7 @@
   position: relative;
   margin-top: 1em;
   text-align: center;
+  background-color: var(--azul_oscuro);
 
   div {
     display: inline;
@@ -21,9 +22,11 @@
     opacity: 50%;
     margin-bottom: 1em;
     border-radius: 15px;
-    box-shadow: 1px 1px 1px 1px black;
+    box-shadow: 1px 1px 1px 1px var(--negro);
     border: none;
     grid-area: vista;
+    background-color: var(--azul_principal);
+    color: var(--negro);
 
   }
 
@@ -39,17 +42,18 @@
 
   button {
     display: inline;
-    color: aliceblue;
+    color: var(--azul_clarisimo);
     background-color: inherit;
     border-radius: 15px;
     width: 9em;
     max-height: fit-content;
-    box-shadow: 0px 1px 1px 1px black;
+    box-shadow: 0px 1px 1px 1px var(--negro);;
     border: none;
     padding: 0 2em;
+    background-color: var(--azul_principal);
 
     &:hover {
-      background-color: rgba(255, 106, 0, 60%);
+      background-color: var(--azul_marino);
     }
 
     &:active {
@@ -58,11 +62,11 @@
 
     &:first-child {
       display: inline;
-      width: 3em;
+      width: auto;
       position: absolute;
-      right: 0;
-      top: 0;
-      margin: .5em;
+      right: 0.1em;
+      top: 0.1em;
+      margin: .1em;
     }
   }
 

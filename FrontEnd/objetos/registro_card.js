@@ -1,8 +1,9 @@
 import { User } from './conexiones/user.js';
 import { cartelAviso } from './cartel_aceptar_cancelar/cartelAviso.js';
 import { Util } from './Util.js';
+import { EfectosPassword } from './efectosPassword.js';
 
-// accion para sacar la imagen
+// acción para sacar la imagen
 const fileInput = document.getElementById('file-input');
 fileInput.addEventListener('change',  ()=> Util.updateFileName());
 fileInput.addEventListener('change', ()=> Util.guardarImagen64(fileInput));
@@ -27,7 +28,7 @@ registrarse.addEventListener('click',  () => {
     userCreado.conexionApi();
   
   } else {
-    new cartelAviso('Los campos usuario y contraseña no deben estar vacíos')
+    new cartelAviso('Los campos email y contraseña no deben estar vacíos')
 
   }
 

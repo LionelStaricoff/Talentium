@@ -1,6 +1,6 @@
 @import url("../../css/style.css"); /*importé mis estilos*/
 @import url('./profesionalAceptarOrden.css');
-/* @import url('./profesionalListarOrden.css'); */
+@import url('./profesionalListarOrden.css');
 
 
 * {

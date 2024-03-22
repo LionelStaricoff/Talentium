@@ -1,6 +1,7 @@
 import { User } from './conexiones/user.js';
 import { cartelAviso } from './cartel_aceptar_cancelar/cartelAviso.js';
 import { Util } from './Util.js';
+import { EfectosPassword } from './efectosPassword.js';
 
 
 const registrarse = document.querySelector('.login_button');
@@ -23,7 +24,7 @@ registrarse.addEventListener('click',  () => {
 
 
   } else {
-    new cartelAviso('Los campos usuario y contraseña no deben estar vacíos')
+    new cartelAviso('Los campos email y contraseña no deben estar vacíos')
 
   }
 

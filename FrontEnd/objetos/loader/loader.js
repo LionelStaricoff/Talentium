@@ -5,5 +5,5 @@ window.onload = () => {
         loading.style.display = 'none';
         contenido.style.display ='block';
 
-    }, 3000)
+    }, 2000)
 }
