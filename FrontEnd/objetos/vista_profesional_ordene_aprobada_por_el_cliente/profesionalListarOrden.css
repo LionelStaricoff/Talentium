@@ -87,10 +87,12 @@
     transition: background-color 0.3s transform 0.2s;
     position: relative;
     text-align: left;
+    background-color: var(--azul_oscuro);
 
-    &:nth-child(odd) {
+
+    /* &:nth-child(odd) {
       background-color: var(--azul_oscuro);
-    }
+    } */
     textarea,
     input,
     button {
