@@ -45,7 +45,7 @@ export class User {
 
     login() {
 
-        const url = `${Util.conexionBase()}/login`;
+        const url = `${Util.conexionBase()}/usuarios/login`;
         const userData = {
             email: this.email,
             password: this.password
@@ -60,7 +60,7 @@ export class User {
         }).then(response => response.json())
             .then(data => {
                 Util.guardarLogin(data);
-                 // alert('data: ' + data.password)
+
                 Util.guardarAuthorization(data.password);
                 const usuariodb = data.name ?? null;
                 if (usuariodb !== null) {

@@ -178,7 +178,9 @@ export class Util {
 
 
     static reuperarImagen() {
-        return sessionStorage.getItem('imagen');
+        let avatar = sessionStorage.getItem('imagen') ?? '';
+        if (avatar == '') avatar = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAACXBIWXMAAAsTAAALEwEAmpwYAAADYklEQVR4nO2YXU/TYBTHp0a91jtj9AsYr/wKulfbDcPAxGi8EYF7bkwUoyhd1w6BmKAihJcLhYTBEip6ZULWPk83MWwwRkRmSIAiXjDoGG5kjzkGEgI6NtYyMJ7kn/TitP3lnD7nf1KD4V8OZ+3YCeNTqdzREPDZeXnOwko/QXDt8AQGTIxYBjlFgTMzqNTOYaWqPRzvlhSCviVI9Mf6b0mxBOmSFFLZHo7TnDxvYqRr+wbm7Ok5RnO4ubw5qH6YWCKxpUxWQU55U1ClONRYW0uO6g4IcHdfh9XxhdSucJsaW0iRitaQSvH4me5thcrlAxfbAlnWHFSNLr9DFzj42GlOVoYiu7c1lqXdNIcVXQ4OnNbq9tDyXuFiG6psC8fN9aJTc0AHj33dSCkILraUIZ2iQkp4uV9zQHsDnoNRUiigFEsQh0ee1RzQxqK16GK6YMDoYprAsw4s4MT3NLG6UfLAtljUq8V2T2CgU1QyhQJ2+OcB0Ks5IBh/lSZjZnT5CoNKNQe89CJ4nObx3LvxvQ/q95ElQvNoXrcNB7YSMH6wrXzhwkqKOJuCqqke2Q16BmwlYPz5QIaVFLnTGlKvcrjBoHfAygRbCRj/UA6+DJ8EVA7g9mXd2gzYSmgOz4G3gn3B+IA5CRKnE6RTnCeVbaE45Oje1mwHx1wvOkt42QuzDYY5CK4dvOyF0wo5RYH7H/+jGGHkxdNml1RN8QG/xYXSJkYiuQhyaU/Ab2SkKlv98CnNwSyMeJFyy14bi5PVXZNq48dFMhBNE2Eqk5MgF+6p6oiq8AzKLfeZGHyhYLDLzPB5isODFI/VusHZtDeSyhlK+Iv6IinySJhdpzzyKuWRB42P5XP5kxFyxOISK21uvPLQN5P2RdcLBhO2V3VynTzwzaThHWYXqoB35sRmbhRO2njZe/3555XukYTmYMI2dX1SSXnziGplce+uWw781oCW3n4ZSupRNSFLNW+1hFSbG/dn9WsbK92/2RJS9xNO2AJ5AyBd6N6f4erEszYWrb4NJfcdTtjQm9EksbJ41VQXPLMD0MIipqZ3eq1YcMKGanq+rlnd+MkOQNojf2lF8aLCCVMZ8grFCe0JTO4AtLIo6Z3IffjqJW8kRSwsSuwABEsqNpywIWA5nICmAyTDYYlf50RNlShHaWwAAAAASUVORK5CYII=';
+        return avatar
     }
 
     static guardarPaginaActual() {
@@ -201,7 +203,7 @@ export class Util {
 
     }
 
-    static conexionBase(){
+    static conexionBase() {
         return 'http://localhost:8080';
     }
 }
