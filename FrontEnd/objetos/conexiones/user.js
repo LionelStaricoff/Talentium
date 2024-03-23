@@ -73,7 +73,7 @@ export class User {
                 }
             }
             ).catch(err => {
-                new cartelAviso('Ups!! Algo salió mal, intenta más tarde');
+                new cartelAviso('Ups!! Algo salió mal, intenta más tarde'+url);
             });
         /* buscando el jwt en el header
                for ([key, value] of response.headers.entries()) {
