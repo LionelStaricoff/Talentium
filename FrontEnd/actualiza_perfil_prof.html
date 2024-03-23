@@ -17,7 +17,7 @@
     <aside class="aside">
         <img class="logo" src="img/Logo1.png" alt="logo">
         <div class="avatarCliente">
-            <img class="img_Cliente" src="img/NoAvatar.png" alt="avatar">
+            <img id="logoUser" class="img_Cliente" src="img/NoAvatar.png" alt="avatar">
             <h4>Profesional</h4>
         </div>
         <nav>
@@ -104,21 +104,22 @@
                                 <label for="especialidad">Especialidad</label>
                                 <select id="especialidad" name="Ingrese su especialidad">
                                     <option value="" disabled selected>Selecciona una especialidad</option>
-                                    <option value="albañil">Albañil</option>
-                                    <option value="cuidador">cuidador</option>
-                                    <option value="diseñador">Diseñador</option>
-                                    <option value="electricista">Electricista</option>
-                                    <option value="gasista">Gasista</option>
-                                    <option value="jardinero">Jardinero</option>
-                                    <option value="pintor">Pintor</option>
-                                    <option value="plomero">Plomero</option>
-                                    <option value="profesor">Profesor</option>
-                                    <option value="programador">Programador</option>
+                                    <option value="DESIGNER">DESIGNER</option>
+                                    <option value="PROGRAMMER">PROGRAMMER</option>
+                                    <option value="TEACHER">TEACHER</option>
+                                    <option value="GASMAN">GASMAN</option>
+                                    <option value="GARDENER">GARDENER</option>
+                                    <option value="PAINTER">PAINTER</option>
+                                    <option value="CONSTRUCTION_WORKER">CONSTRUCTION_WORKER</option>
+                                    <option value="ELECTRICIAN">ELECTRICIAN</option>
+                                    <option value="PLUMBER">PLUMBER</option>
+                                    <option value="OTHERS">OTHERS</option>
+                                    <option value="NANNY">NANNY</option>
                                 </select>
                             </div>
                         </div>
                         <div class="boton_centrado">
-                            <a href="sitio_Prof.html">Actualizar perfil</a>
+                            <a >Actualizar perfil</a>
                         </div>
                     </form>
                 </div>
@@ -127,7 +128,7 @@
     </section>
 
     <script type="module" src="objetos/loader/loader.js"></script>
-
+<script type="module" src="objetos/actualiza_perfil_prof.js"></script>
 </body>
 
 </html>

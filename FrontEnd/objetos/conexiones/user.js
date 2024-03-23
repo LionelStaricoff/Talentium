@@ -60,11 +60,15 @@ export class User {
         }).then(response => response.json())
             .then(data => {
                 Util.guardarLogin(data);
-
+console.log(data)
                 Util.guardarAuthorization(data.password);
                 const usuariodb = data.name ?? null;
                 if (usuariodb !== null) {
+                    if(data.cuit === null) {
+                        Util.cambiarDePagina('sitio_Prof.html');
+                    }else{
                     Util.cambiarDePagina('sitio_del_cliente.html');
+                    }
                 } else {
 
                     Util.guardarAuthorization(data.lastname);

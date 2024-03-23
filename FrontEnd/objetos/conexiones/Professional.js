@@ -32,7 +32,7 @@ export class Professional {
             user: this.user.id,
             direction: this.direction
         };
-console.log(userData)
+
          fetch(url, {
             method: 'POST',
             headers: {
@@ -50,6 +50,37 @@ console.log(userData)
                 new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
             });
 
+    }
+
+    acrualizarProfessional(){
+        const url = `${Util.conexionBase()}/api/professional/${Util.reuperarLogin().id}`;
+        const userData = {
+            //name: this.name,
+            //lastname: this.lastname,
+            phone: this.phone,
+            cuit: this.cuit,
+            cbu: this.cbu,
+            profession: this.profession,
+            direction: this.direction,
+            user: this.user.id
+        };
+console.log(userData)
+         fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+            body: JSON.stringify(userData)
+        }).then(response => response.json())
+            .then(data => {
+              
+                Util.guardarLogin(data);
+                //Util.cambiarDePagina('sitio_Prof.html'); 
+            }
+            ).catch(err => {
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+            });
     }
 }
 
