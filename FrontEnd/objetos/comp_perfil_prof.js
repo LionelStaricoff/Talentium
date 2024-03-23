@@ -5,7 +5,7 @@ import { Professional } from './conexiones/Professional.js';
 
 try {
 
-   // Util.existLogin();
+    Util.existLogin();
 
     //guardar pagina actual para poder volver con la flecha
     const buttons = document.querySelectorAll('li');
@@ -26,18 +26,16 @@ try {
 
 
     const inputs = document.querySelectorAll('input');
+    const especialidad = document.querySelector('#especialidad');
     const crearPerfil = document.querySelector('#crearPerfil');
 
     crearPerfil.addEventListener('click', () => {
+const idDto = Util.reuperarLogin();;
+        let professional = new Professional(idDto,inputs[2].value, inputs[3].value, inputs[4].value,
+            inputs[5].value,
+            inputs[6].value, inputs[7].value, inputs[8].value, inputs[9].value, inputs[10].value, especialidad.value);
 
-
-        let user =1// Util.reuperarLogin();
-    
-        let professional = new Professional(inputs[2].value, inputs[3].value, inputs[4].value,
-            inputs[5].value, user,
-            inputs[6].value, inputs[7].value, inputs[8].value, inputs[9].value,inputs[10].value,inputs[11].value);
-            new cartelAviso(professional, 'h2');
-            //professional.conexionApi();
+        professional.conexionApi();
 
     });
 
