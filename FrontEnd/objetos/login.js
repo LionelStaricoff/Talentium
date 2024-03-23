@@ -32,6 +32,8 @@ registrarse.addEventListener('click',  () => {
 
 
 
+const volverbutton = document.querySelector('#volverbutton');
+volverbutton.addEventListener('click', ()=> Util.volverUltimaPagina());
 
 
 

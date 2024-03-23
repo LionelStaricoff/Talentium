@@ -1,10 +1,13 @@
-import { cartelAviso } from './cartel_aceptar_cancelar/cartelAviso.js';
-import { Client } from './conexiones/Client.js';
 import { Util } from './Util.js'
+import { cartelAviso } from './cartel_aceptar_cancelar/cartelAviso.js';
+import { Professional } from './conexiones/Professional.js';
+
 
 try {
-    Util.existLogin();
 
+   // Util.existLogin();
+
+    //guardar pagina actual para poder volver con la flecha
     const buttons = document.querySelectorAll('li');
     buttons.forEach(li => li.addEventListener('click', () => Util.guardarPaginaActual()));
 
@@ -21,19 +24,20 @@ try {
     const cerrarSesion = document.querySelector('.cerrar');
     cerrarSesion.addEventListener('click', () => Util.borrarSession());
 
+
     const inputs = document.querySelectorAll('input');
     const crearPerfil = document.querySelector('#crearPerfil');
 
     crearPerfil.addEventListener('click', () => {
 
 
-        let user = Util.reuperarLogin();
-        // console.log(user)
-        let cliente = new Client(inputs[2].value, inputs[3].value, inputs[4].value,
+        let user =1// Util.reuperarLogin();
+    
+        let professional = new Professional(inputs[2].value, inputs[3].value, inputs[4].value,
             inputs[5].value, user,
-            inputs[6].value, inputs[7].value, inputs[8].value, inputs[9].value);
-
-        cliente.conexionApi();
+            inputs[6].value, inputs[7].value, inputs[8].value, inputs[9].value,inputs[10].value,inputs[11].value);
+            new cartelAviso(professional, 'h2');
+            //professional.conexionApi();
 
     });
 

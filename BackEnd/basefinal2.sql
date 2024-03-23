@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(45) NOT NULL,
   `contrasenia` varchar(45) NOT NULL,
-  `avatar` varchar(250) DEFAULT 'url',
+  `avatar` TEXT DEFAULT 'url',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3;
