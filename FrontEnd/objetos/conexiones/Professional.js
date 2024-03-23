@@ -1,32 +1,34 @@
 import { Util } from '../Util.js';
 import { cartelAviso } from '../cartel_aceptar_cancelar/cartelAviso.js';
 
-export class Client {
-    constructor(nameDto, lastnameDto, dniDto, phoneDto, userId, street, number, province, location) {
+export class Professional {
+    constructor(nameDto, lastnameDto, cuitDto, phoneDto, street, number, province, location, cbuDto, especialidadDto) {
         this.name = nameDto;
         this.lastname = lastnameDto;
-        this.dni = dniDto;
+        this.cuit = cuitDto;
         this.phone = phoneDto;
-        this.user = {
-            "id": userId
-        }
+        this.user = { "id": Util.reuperarUsuario() }
         this.direction = {
             "street": street,
             "number": number,
             "province": province,
             "location": location
         }
+        this.cbu = cbuDto;
+        this.especialidad = especialidadDto;
     }
 
 
      conexionApi() {
 
-        const url = `${Util.conexionBase()}/api/client`;
+        const url = `${Util.conexionBase()}/api/professional`;
         const userData = {
             name: this.name,
             lastname: this.lastname,
-            dni: this.dni,
             phone: this.phone,
+            cuit: this.cuit,
+            cbu: this.cbu,
+            profession: this.profession,
             user: this.user.id,
             direction: this.direction
         };
