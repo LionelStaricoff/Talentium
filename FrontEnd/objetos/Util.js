@@ -200,6 +200,10 @@ export class Util {
         sessionStorage.clear();
 
     }
+
+    static conexionBase(){
+        return 'http://localhost:8080';
+    }
 }
 
 

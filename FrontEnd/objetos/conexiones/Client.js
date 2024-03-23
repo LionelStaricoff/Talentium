@@ -21,7 +21,7 @@ export class Client {
 
      conexionApi() {
 
-        const url = 'http://localhost:8080/api/client';
+        const url = `${Util.conexionBase()}/api/client`;
         const userData = {
             name: this.name,
             lastname: this.lastname,
