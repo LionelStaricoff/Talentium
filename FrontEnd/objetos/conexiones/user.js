@@ -32,7 +32,6 @@ export class User {
                 Util.guardarLogin(data);
                 Util.guardarAuthorization(data.password);
                 Util.guardarImagen(data.avatar);
-               // alert(Util.reuperarImagen());
                 Util.cambiarDePagina('invitaAregistrar.html');
             }
             ).catch(err => {
@@ -60,24 +59,24 @@ export class User {
         }).then(response => response.json())
             .then(data => {
                 Util.guardarLogin(data);
-console.log(data)
                 Util.guardarAuthorization(data.password);
                 const usuariodb = data.name ?? null;
                 if (usuariodb !== null) {
-                    if(data.cuit === null) {
+                    if (data.cuit === null) {
+                        Util.guardarImagen(data.user.avatar);
                         Util.cambiarDePagina('sitio_Prof.html');
-                    }else{
-                    Util.cambiarDePagina('sitio_del_cliente.html');
+                    } else {
+                        Util.cambiarDePagina('sitio_del_cliente.html');
                     }
                 } else {
 
                     Util.guardarAuthorization(data.lastname);
-                    Util.guardarImagen(data.avatar);
+                    Util.guardarImagen(data.user.avatar);
                     Util.cambiarDePagina('invitaAregistrar.html');
                 }
             }
             ).catch(err => {
-                new cartelAviso('Ups!! Algo salió mal, intenta más tarde'+url);
+                new cartelAviso('Ups!! Algo salió mal, intenta más tarde');
             });
         /* buscando el jwt en el header
                for ([key, value] of response.headers.entries()) {
