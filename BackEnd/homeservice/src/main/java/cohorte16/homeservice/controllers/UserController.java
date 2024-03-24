@@ -109,7 +109,7 @@ public class UserController {
             userCreated = userServiceImpl.validateLogin(datosLogin);
 
            authToken = new UsernamePasswordAuthenticationToken(datosLogin.email(),  EncryptData.encryptPassword(datosLogin.password() ));
-              user = new User(userCreated.getId(),userCreated.getEmail(),userCreated.getPassword(),null);
+              user = new User(userCreated.getId(),userCreated.getEmail(),userCreated.getPassword(),userCreated.getAvatar());
               JWToken = tokenService.generarToken(user);
              jwtToken.set("Authorization",JWToken);
 

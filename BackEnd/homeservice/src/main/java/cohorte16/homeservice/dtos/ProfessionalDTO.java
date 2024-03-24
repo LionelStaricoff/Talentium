@@ -29,7 +29,8 @@ public record ProfessionalDTO(
                 professional.getProfession(),
                 professional.getRating(),
                 null,
-                LoginUserDTO.LoginUserDTO(professional.getUser()), professional.getDirection(),
+               professional.getUser(),
+               professional.getDirection(),
                professional.getWallet()
        );
     }
