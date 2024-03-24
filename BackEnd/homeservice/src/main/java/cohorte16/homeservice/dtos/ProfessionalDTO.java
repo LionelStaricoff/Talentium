@@ -25,10 +25,10 @@ public record ProfessionalDTO(
                 professional.getName(),
                 professional.getLastname(),
                 professional.getPhone(),
-                null,
+               professional.getCuit(),
                 professional.getProfession(),
                 professional.getRating(),
-                null,
+               professional.getCbu(),
                professional.getUser(),
                professional.getDirection(),
                professional.getWallet()

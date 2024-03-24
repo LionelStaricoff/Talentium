@@ -13,7 +13,8 @@ saludo.innerText =  Util.reuperarLogin().name?? 'usuario';
 
 const inputs = document.querySelectorAll('input');
 inputs[2].value = Util.reuperarLogin().name;
-inputs[3].value = Util.reuperarLogin().lastname;
+inputs[3].value = 'XXXXXXX';
+inputs[4].value = Util.reuperarLogin().cuit;
 
 
 //guardar pagina actual para poder volver con la flecha

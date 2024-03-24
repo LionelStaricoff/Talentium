@@ -62,7 +62,7 @@ export class Professional {
             cbu: this.cbu,
             profession: this.profession,
             direction: this.direction,
-            user: this.user.id
+           // user: this.user.id
         };
 console.log(userData)
          fetch(url, {

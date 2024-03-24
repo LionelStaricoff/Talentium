@@ -62,7 +62,8 @@ export class User {
                 Util.guardarAuthorization(data.password);
                 const usuariodb = data.name ?? null;
                 if (usuariodb !== null) {
-                    if (data.cuit === null) {
+                  
+                    if (data.cuit !== undefined) {
                         Util.guardarImagen(data.user.avatar);
                         Util.cambiarDePagina('sitio_Prof.html');
                     } else {
