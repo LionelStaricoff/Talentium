@@ -25,11 +25,12 @@ public record ProfessionalDTO(
                 professional.getName(),
                 professional.getLastname(),
                 professional.getPhone(),
-                null,
+               professional.getCuit(),
                 professional.getProfession(),
                 professional.getRating(),
-                null,
-                LoginUserDTO.LoginUserDTO(professional.getUser()), professional.getDirection(),
+               professional.getCbu(),
+               professional.getUser(),
+               professional.getDirection(),
                professional.getWallet()
        );
     }

@@ -2,12 +2,12 @@ import { Util } from '../Util.js';
 import { cartelAviso } from '../cartel_aceptar_cancelar/cartelAviso.js';
 
 export class Professional {
-    constructor(nameDto, lastnameDto, cuitDto, phoneDto, street, number, province, location, cbuDto, especialidadDto) {
+    constructor(idDto, nameDto, lastnameDto, cuitDto, phoneDto, street, number, province, location, cbuDto, especialidadDto) {
         this.name = nameDto;
         this.lastname = lastnameDto;
         this.cuit = cuitDto;
         this.phone = phoneDto;
-        this.user = { "id": Util.reuperarUsuario() }
+        this.user = { "id": idDto }
         this.direction = {
             "street": street,
             "number": number,
@@ -15,7 +15,7 @@ export class Professional {
             "location": location
         }
         this.cbu = cbuDto;
-        this.especialidad = especialidadDto;
+        this.profession = especialidadDto;
     }
 
 
@@ -27,8 +27,8 @@ export class Professional {
             lastname: this.lastname,
             phone: this.phone,
             cuit: this.cuit,
-            cbu: this.cbu,
             profession: this.profession,
+            cbu: this.cbu, 
             user: this.user.id,
             direction: this.direction
         };
@@ -44,12 +44,44 @@ export class Professional {
             .then(data => {
               
                 Util.guardarLogin(data);
-                Util.cambiarDePagina('sitio_del_cliente.html'); 
+                Util.cambiarDePagina('sitio_Prof.html'); 
             }
             ).catch(err => {
                 new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
             });
 
+    }
+
+    acrualizarProfessional(){
+        alert(Util.reuperarAuthorization())
+        const url = `${Util.conexionBase()}/api/professional/${Util.reuperarLogin().id}`;
+        const userData = {
+            //name: this.name,
+            //lastname: this.lastname,
+            phone: this.phone,
+            cuit: this.cuit,
+            cbu: this.cbu,
+            profession: this.profession,
+            direction: this.direction,
+           // user: this.user.id
+        };
+console.log(userData)
+         fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+            body: JSON.stringify(userData)
+        }).then(response => response.json())
+            .then(data => {
+              
+                console.log('actualizar profesional: '+data);
+                //Util.cambiarDePagina('sitio_Prof.html'); 
+            }
+            ).catch(err => {
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+            });
     }
 }
 
