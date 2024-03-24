@@ -53,6 +53,7 @@ export class Professional {
     }
 
     acrualizarProfessional(){
+        alert(Util.reuperarAuthorization())
         const url = `${Util.conexionBase()}/api/professional/${Util.reuperarLogin().id}`;
         const userData = {
             //name: this.name,
@@ -75,7 +76,7 @@ console.log(userData)
         }).then(response => response.json())
             .then(data => {
               
-                Util.guardarLogin(data);
+                console.log('actualizar profesional: '+data);
                 //Util.cambiarDePagina('sitio_Prof.html'); 
             }
             ).catch(err => {

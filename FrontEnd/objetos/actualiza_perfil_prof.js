@@ -11,11 +11,19 @@ Util.existLogin();
 const saludo = document.querySelector('span');
 saludo.innerText =  Util.reuperarLogin().name?? 'usuario';
 
+//datos de los input
 const inputs = document.querySelectorAll('input');
+const especialidad = document.querySelector('#especialidad');
 inputs[2].value = Util.reuperarLogin().name;
 inputs[3].value = 'XXXXXXX';
 inputs[4].value = Util.reuperarLogin().cuit;
-
+inputs[5].value = Util.reuperarLogin().phone;
+inputs[6].value = Util.reuperarLogin().direction.street;
+inputs[7].value = Util.reuperarLogin().direction.number;
+inputs[8].value = Util.reuperarLogin().direction.province;
+inputs[9].value = Util.reuperarLogin().direction.location;
+inputs[10].value = Util.reuperarLogin().cuit;
+especialidad.value = Util.reuperarLogin().profession;
 
 //guardar pagina actual para poder volver con la flecha
 const buttons = document.querySelectorAll('li');
@@ -36,7 +44,7 @@ cerrarSesion.addEventListener('click', () => Util.borrarSession());
 
 
 
-const especialidad = document.querySelector('#especialidad');
+
 const actualizarPerfil = document.querySelector('.boton_centrado');
 
 actualizarPerfil.addEventListener('click', () => {

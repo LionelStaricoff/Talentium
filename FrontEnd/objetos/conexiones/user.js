@@ -64,9 +64,11 @@ export class User {
                 if (usuariodb !== null) {
                   
                     if (data.cuit !== undefined) {
+                        Util.guardarAuthorization(data.lastname);
                         Util.guardarImagen(data.user.avatar);
                         Util.cambiarDePagina('sitio_Prof.html');
                     } else {
+                        Util.guardarAuthorization(data.lastname);
                         Util.cambiarDePagina('sitio_del_cliente.html');
                     }
                 } else {
