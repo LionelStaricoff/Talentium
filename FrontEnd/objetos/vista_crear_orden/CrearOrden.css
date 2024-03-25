@@ -11,13 +11,11 @@
   border-radius: 10px;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.8);
   padding: 30px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
+ 
+  overflow: auto;
 
   textarea {
-    max-width: 100%;
+    max-width: 70%;
     max-height: fit-content;
     text-align: center;
     opacity: 80%;
@@ -31,6 +29,8 @@
 
   button {
     background-color: var(--azul_oscuro);
+    max-width: 75%;
+    min-height: 2em;
     padding: 0px;
     border-radius: 8px;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.364);
