@@ -66,12 +66,13 @@ section.header_y_container {
                 }
 
                 a {
-                    width: 16vw;
-                    height: 10vh;
+                    min-width: 32vw;
+                    min-height: 18vh;
                     color: var(--blanco);
                     font-size: 1em;
                     display: grid;
                     place-items: center;
+                    text-align: center;
                 }
 
                 @media(max-width: 900px) {

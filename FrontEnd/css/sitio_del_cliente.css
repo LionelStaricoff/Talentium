@@ -5,7 +5,6 @@
 aside{
     @media(max-width: 650px){
         display: block;
-        /* height: auto; */
     }
 }
 
