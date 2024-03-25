@@ -80,6 +80,7 @@ console.log(userData)
                 //Util.cambiarDePagina('sitio_Prof.html'); 
             }
             ).catch(err => {
+                console.log(data)
                 new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
             });
     }
