@@ -19,12 +19,16 @@ section.header_y_container {
             @media (max-width: 900px) {
                 grid-template-columns: repeat(1, 80%);
                 grid-template-rows: repeat(5, auto);
-                gap: 0px;
             }
 
             @media (max-width: 800px) {
                 grid-template-columns: repeat(1, 100%);
-                margin: 0;
+            }
+            @media (max-width: 650px) {
+                width: 70%;
+            }
+            @media (max-width: 400px) {
+                width: 85%;
             }
 
             .perfil_columna_izq,

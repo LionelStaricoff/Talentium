@@ -5,6 +5,7 @@
 aside{
     @media(max-width: 650px){
         display: block;
+        /* height: auto; */
     }
 }
 
@@ -53,6 +54,7 @@ section.header_y_container {
                 color: var(--blanco);
                 display: grid;
                 place-content: center;
+                min-height: 80px;
                 
                 &:hover {
                     cursor: pointer;

@@ -3,7 +3,7 @@
 body {
     color: var(--blanco_tenue);
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    height: 100vh;
+    min-height: 100vh;
     background-color: var(--azul_claro);
     display: flex;
     
