@@ -101,18 +101,8 @@ public class ClientServiceImpl implements ClientService {
 
     private static Client updateClientFromClientDTO(Client clientExisting,
                                                     ClientPutDTO clientDTO) {
-        clientExisting.setName(clientDTO.name());
-        clientExisting.setLastname(clientDTO.lastname());
+        clientExisting.setPhone(clientDTO.phone());
         clientExisting.setDni(clientDTO.dni());
-        clientExisting.setRating(clientDTO.rating());
-        clientExisting.setUser(
-                new User(
-                        clientDTO.user().id(),
-                        clientDTO.user().email(),
-                        clientExisting.getUser().getPassword(),
-                        clientDTO.user().avatar()
-                )
-                );
         clientExisting.setDirection(
                 new Direction(
                         null,

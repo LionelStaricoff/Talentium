@@ -19,7 +19,7 @@ export class Client {
     }
 
 
-     conexionApi() {
+    conexionApi() {
 
         const url = `${Util.conexionBase()}/api/client`;
         const userData = {
@@ -31,7 +31,7 @@ export class Client {
             direction: this.direction
         };
 
-         fetch(url, {
+        fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -40,14 +40,42 @@ export class Client {
             body: JSON.stringify(userData)
         }).then(response => response.json())
             .then(data => {
-              
+
                 Util.guardarLogin(data);
-                Util.cambiarDePagina('sitio_del_cliente.html'); 
+                Util.cambiarDePagina('sitio_del_cliente.html');
             }
             ).catch(err => {
                 new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
             });
 
     }
+
+    acrualizarCliente() {
+        const url = `${Util.conexionBase()}/api/client/${Util.reuperarLogin().id}`;
+        const userData = {
+            phone: this.phone,
+            dni: this.dni,
+            direction: this.direction,
+        };
+
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+            body: JSON.stringify(userData)
+        }).then(response => response.json())
+            .then(data => {
+                console.log('Cliente actualizado: ' + JSON.stringify(data))
+                new cartelAviso('Datos actualizados', 'h2');
+                //Util.cambiarDePagina('sitio_del_cliente.html'); 
+            }
+            ).catch(err => {
+
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+            });
+    }
 }
+
 
