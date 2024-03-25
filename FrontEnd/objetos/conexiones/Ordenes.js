@@ -1,11 +1,15 @@
+import { cartelAviso } from '../cartel_aceptar_cancelar/cartelAviso.js';
+import { Util } from '../Util.js';
+
+
 export class Ordenes {
     constructor(dato, divPadre) {
         this.datos = dato;
         this.textarea;
         this.divPadre = divPadre ?? '#front';
         this.orden = {
-            "description": this.textarea ?? "nueva orden test",
-            "cliente_id": dato.clienteId ?? NaN
+            "description": this.textarea ?? undefined,
+            "cliente_id": dato.clienteId ?? undefined
         }
     }
 
@@ -24,18 +28,19 @@ export class Ordenes {
         button.innerText = "Crear";
         button.addEventListener('click', () => {
             //  console.log(this.datos);
-            this.orden.description = document.querySelector('textarea').value;
-         if( this.orden.description !== '' &&this.orden.description !== undefined){
-            this.crearOrdenConexionApi();
-            this.cerrarOrden();
-         }else{
+            const textareaFront = document.querySelector('textarea');
+             this.textarea = textareaFront.value;
+            if (this.textarea !== '' && this.textarea !== undefined) {
+                this.crearOrdenConexionApi();
+                textareaFront.value = '';
+            } else {
+                new cartelAviso('El campo no puede estar vacío', 'h2');
+            }
 
-         }
-         
         });
 
-      
-        div.append( textarea, button);
+
+        div.append(textarea, button);
         return div;
     }
     agregarAlFront() {
@@ -43,20 +48,20 @@ export class Ordenes {
         main.appendChild(this.crearOrden());
     }
 
-    cerrarOrden(){
+    cerrarOrden(div) {
         const padre = div.parentNode;
-            padre.removeChild(div);
+        padre.removeChild(div);
     }
 
     crearOrdenConexionApi() {
-        const url = `${Util.conexionBase()}/api/order}`;
+        const url = `${Util.conexionBase()}/api/order`;
         const userData = {
             cliente_id: this.datos.id,
-            description: this.orden.description
+            description: this.textarea
         };
 
         fetch(url, {
-            method: 'PUT',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
@@ -65,7 +70,7 @@ export class Ordenes {
         }).then(response => response.json())
             .then(data => {
                 if (data !== null) {
-                    new cartelAviso('Datos actualizados', 'h2');
+                    new cartelAviso('Pedido enviado', 'h2');
                     //Util.cambiarDePagina('sitio_del_cliente.html');
                 } else {
                     throw new Error('No se puedieron guardar los datos de las ordenes');

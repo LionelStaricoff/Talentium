@@ -1,5 +1,5 @@
 import { Util } from './Util.js';
-import { Ordenes } from './vista_crear_orden/js/Ordenes.js';
+import { Ordenes } from './conexiones/Ordenes.js';
 
 Util.existLogin();
 

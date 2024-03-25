@@ -40,7 +40,6 @@ export class Client {
             body: JSON.stringify(userData)
         }).then(response => response.json())
             .then(data => {
-
                 Util.guardarLogin(data);
                 Util.cambiarDePagina('sitio_del_cliente.html');
             }
@@ -67,7 +66,7 @@ export class Client {
             body: JSON.stringify(userData)
         }).then(response => response.json())
             .then(data => {
-                console.log('Cliente actualizado: ' + JSON.stringify(data))
+                Util.guardarLogin(data);
                 new cartelAviso('Datos actualizados', 'h2');
                 //Util.cambiarDePagina('sitio_del_cliente.html'); 
             }
