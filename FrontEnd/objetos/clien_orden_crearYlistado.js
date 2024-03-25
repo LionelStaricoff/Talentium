@@ -1,6 +1,6 @@
 import { Util } from './Util.js'
 
-//Util.existLogin();
+Util.existLogin();
 
 //guardar pagina actual para poder volver con la flecha
 const buttons = document.querySelectorAll('li');
