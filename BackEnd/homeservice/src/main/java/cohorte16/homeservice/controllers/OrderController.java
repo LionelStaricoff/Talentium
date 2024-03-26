@@ -25,13 +25,13 @@ public class OrderController {
     @Autowired
     private OrderRepository orderService2;
 
-    @GetMapping(value = "/all", produces = "application/json")
+    @GetMapping(value = "/all/{id}", produces = "application/json")
     public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") int page,
-                                    @RequestParam(defaultValue = "10") int size) {
+                                    @RequestParam(defaultValue = "10") int size, @Valid @PathVariable Long id) {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         try{
-            return ResponseEntity.status(HttpStatus.OK).body( orderService.getAll(pageRequest));
+            return ResponseEntity.status(HttpStatus.OK).body( orderService2.findOrdenesByClienteId(id,pageRequest));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error! Something went wrong");
         }
