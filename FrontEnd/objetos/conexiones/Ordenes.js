@@ -7,10 +7,7 @@ export class Ordenes {
         this.datos = dato;
         this.textarea;
         this.divPadre = divPadre ?? '#front';
-        this.orden = {
-            "description": this.textarea ?? undefined,
-            "cliente_id": dato.clienteId ?? undefined
-        }
+       
     }
 
     crearOrden() {

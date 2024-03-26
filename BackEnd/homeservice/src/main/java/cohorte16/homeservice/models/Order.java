@@ -52,4 +52,14 @@ public class Order {
         this.description = orderDTO.description();
     }
 
+    public Order(Order order) {
+        this.id = order.getId();
+        this.description = order.getDescription();
+        this.professional = order.getProfessional();
+        this.description_professional = order.getDescription_professional();
+        this.price = order.getPrice();
+        this.date = order.getDate();
+        this.orderstatus = order.getOrderstatus();
+        this.client = order.getClient();
+    }
 }

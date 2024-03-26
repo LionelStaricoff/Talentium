@@ -12,9 +12,11 @@ import cohorte16.homeservice.repositories.ProfessionalRepository;
 import cohorte16.homeservice.services.OrderService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
-import org.apache.commons.lang3.ObjectUtils;
 import org.hibernate.service.spi.ServiceException;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 
@@ -34,33 +36,33 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderMapper orderMapper;
 
-    public OrderServiceImpl (OrderRepository orderRepository,
-                             ProfessionalRepository professionalRepository,
-                             OrderMapper orderMapper){
+    public OrderServiceImpl(OrderRepository orderRepository,
+                            ProfessionalRepository professionalRepository,
+                            OrderMapper orderMapper) {
         this.orderRepository = orderRepository;
         this.professionalRepository = professionalRepository;
         this.orderMapper = orderMapper;
     }
 
     @Override
-    public List<OrderGetInitialDTO> getAllInitialOrders(){
+    public List<OrderGetInitialDTO> getAllInitialOrders() {
         List<OrderGetInitialDTO> orderResponseDTOs;
-        try{
+        try {
             List<Order> orderList = orderRepository.findByOrderStatus(Orderstatus.Inicial);
             orderResponseDTOs = orderList.stream().map(orderMapper::orderToOrderGetInitialDTO).toList();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ServiceException("Error occurred while fetching all orders", e);
         }
         return orderResponseDTOs;
     }
 
     @Override
-    public List<OrderGetPendRespDTO> getAllPendingOrders(){
+    public List<OrderGetPendRespDTO> getAllPendingOrders() {
         List<OrderGetPendRespDTO> orderResponseDTOs;
-        try{
+        try {
             List<Order> orderList = orderRepository.findByOrderStatus(Orderstatus.Pendiente);
             orderResponseDTOs = orderList.stream().map(orderMapper::orderToOrderGetPendRespDTO).toList();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new ServiceException("Error occurred while fetching all orders", e);
         }
         return orderResponseDTOs;
@@ -68,9 +70,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAllApprovedOrders() throws Exception {
-        try{
+        try {
             return orderRepository.findByOrderStatus(Orderstatus.Aprobada);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
@@ -78,31 +80,31 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderCreateRespDTO CreatedOrder(OrderDTO order) {
-        try{
-            Order  odenDb = Order.builder()
+        try {
+            Order odenDb = Order.builder()
                     .description(order.description())
-                    .client(Client.builder().id(order.cliente_id()).build()  )
-                    .date( new Date())
+                    .client(Client.builder().id(order.cliente_id()).build())
+                    .date(new Date())
                     .orderstatus(Orderstatus.valueOf("Inicial"))
                     .build();
             Order orderEntity = orderRepository.save(odenDb);
             return orderMapper.orderToOrderCreateRespDTO(orderEntity);
-        } catch (EntityNotSavedException en){
+        } catch (EntityNotSavedException en) {
             throw new EntityNotSavedException("Try again, the order has not been saved");
-        }catch (ServiceException e){
+        } catch (ServiceException e) {
             throw new ServiceException(e.getMessage());
         }
     }
 
     @Override
-    public OrderGetPendRespDTO takeOrderProfessional(Long id, OrderProfessionalDTO orderProfessionalDTO){
+    public OrderGetPendRespDTO takeOrderProfessional(Long id, OrderProfessionalDTO orderProfessionalDTO) {
         try {
             Order order = orderRepository.findById(id).orElseThrow(
                     () -> new EntityNotFoundException("Order Not Found")
             );
             Professional professional = professionalRepository.findById(
                     orderProfessionalDTO.idProfessional()).orElseThrow(
-                            () -> new EntityNotFoundException("Professional Not Found")
+                    () -> new EntityNotFoundException("Professional Not Found")
             );
             order.setProfessional(professional);
             order.setDescription_professional(orderProfessionalDTO.descriptionProfessional());
@@ -118,57 +120,57 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderGetInitialDTO updateOrderDescription(UpdateOrderDTO updateOrderDTO) {
-        try{
+        try {
             Order existingOrder = orderRepository.findById(updateOrderDTO.order_id())
-                    .orElseThrow(()-> new EntityNotFoundException("Order not found"));
-            if(updateOrderDTO.description() != null)existingOrder.setDescription(updateOrderDTO.description());
+                    .orElseThrow(() -> new EntityNotFoundException("Order not found"));
+            if (updateOrderDTO.description() != null) existingOrder.setDescription(updateOrderDTO.description());
             Order orderSaved = orderRepository.save(existingOrder);
             return orderMapper.orderToOrderGetInitialDTO(orderSaved);
-        }catch (ServiceException e) {
+        } catch (ServiceException e) {
             throw new ServiceException(e.getMessage());
         }
     }
 
     @Override
     public OrderRatingDTO updateRating(OrderRatingDTO order) {
-        try{
+        try {
             Order orderEntity = orderRepository.findById(order.id())
                     .orElseThrow(() -> new EntityNotFoundException("Order not found"));
-            if(order.ratingClient() != null) {
-                orderEntity.getClient().setRating( (order.ratingClient()+orderEntity.getClient().getRating()) /2);
+            if (order.ratingClient() != null) {
+                orderEntity.getClient().setRating((order.ratingClient() + orderEntity.getClient().getRating()) / 2);
             }
             if (order.ratingProfessional() != null && orderEntity.getPrice() != null) {
-                orderEntity.getProfessional().setRating( (orderEntity.getProfessional().getRating() + order.ratingProfessional() ) /2 );
+                orderEntity.getProfessional().setRating((orderEntity.getProfessional().getRating() + order.ratingProfessional()) / 2);
 
-                orderEntity.getProfessional().setWallet( orderEntity.getPrice().add( (orderEntity.getProfessional().getWallet() == null)? BigDecimal.valueOf(0) : orderEntity.getProfessional().getWallet() ));
+                orderEntity.getProfessional().setWallet(orderEntity.getPrice().add((orderEntity.getProfessional().getWallet() == null) ? BigDecimal.valueOf(0) : orderEntity.getProfessional().getWallet()));
                 orderEntity.setOrderstatus(Orderstatus.Finalizada);
             }
             Order orderSaved = orderRepository.save(orderEntity);
             return orderMapper.orderToOrderRatingDTO(orderSaved);
-        }catch (ServiceException e){
+        } catch (ServiceException e) {
             throw new ServiceException(e.getMessage());
         }
     }
 
     @Override
     public OrderAceptedDTO orderAcepted(Long id) {
-        try{
+        try {
             Order exintingOrder = orderRepository.findById(id)
-                    .orElseThrow(()-> new EntityNotFoundException("Order not found"));
+                    .orElseThrow(() -> new EntityNotFoundException("Order not found"));
             exintingOrder.setOrderstatus(Orderstatus.Aprobada);
             Order orderSaved = orderRepository.save(exintingOrder);
             return orderMapper.orderToOrderAceptedDTO(orderSaved);
-        }catch (ServiceException e){
+        } catch (ServiceException e) {
             throw new ServiceException(e.getMessage());
         }
     }
 
     /*
-    * Revisar porque viajan null con entidades completas y no dto
-    * */
+     * Revisar porque viajan null con entidades completas y no dto
+     * */
     @Override
     public Order cancelOrderOfProfessional(Long id) {
-        try{
+        try {
             Order order = orderRepository.findById(id).
                     orElseThrow((() -> new EntityNotFoundException("Order Not Found")));
             order.setProfessional(null);
@@ -176,24 +178,32 @@ public class OrderServiceImpl implements OrderService {
             order.setPrice(null);
             order.setOrderstatus(Orderstatus.Inicial);
             return orderRepository.save(order);
-        }catch(ServiceException e){
+        } catch (ServiceException e) {
             throw new ServiceException(e.getMessage());
         }
     }
 
     @Override
     public boolean deleteOrder(Long id) throws Exception {
-       try{
+        try {
             Optional<Order> orderOptional = orderRepository.findById(id);
-            if (orderOptional.isPresent()){
+            if (orderOptional.isPresent()) {
                 Order order = orderOptional.get();
                 orderRepository.delete(order);
                 return true;
-            }else {
+            } else {
                 return false;
             }
-       }catch (Exception e){
-           throw new Exception(e.getMessage());
-       }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
     }
+/*
+    public Page<Order> getAll(Pageable pageable) {
+        try {
+            return  orderRepository.findAllOrderPage(pageable);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }*/
 }

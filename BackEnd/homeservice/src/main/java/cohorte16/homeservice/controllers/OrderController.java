@@ -4,9 +4,13 @@ import cohorte16.homeservice.dtos.OrderDTO;
 import cohorte16.homeservice.dtos.OrderProfessionalDTO;
 import cohorte16.homeservice.dtos.OrderRatingDTO;
 import cohorte16.homeservice.dtos.UpdateOrderDTO;
+import cohorte16.homeservice.models.Order;
+import cohorte16.homeservice.repositories.OrderRepository;
+import cohorte16.homeservice.services.OrderService;
 import cohorte16.homeservice.services.impl.OrderServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +22,20 @@ public class OrderController {
 
     @Autowired
     private OrderServiceImpl orderService;
+    @Autowired
+    private OrderRepository orderService2;
+
+    @GetMapping(value = "/all", produces = "application/json")
+    public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body( orderService2.findAll(pageRequest).map(Order::new));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error! Something went wrong");
+        }
+    }
 
     @GetMapping(value = "/allinitial", produces = "application/json")
     public ResponseEntity<?> getAllInitialOrders(){
