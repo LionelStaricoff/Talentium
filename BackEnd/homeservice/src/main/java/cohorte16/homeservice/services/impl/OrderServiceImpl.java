@@ -17,6 +17,8 @@ import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -198,12 +200,12 @@ public class OrderServiceImpl implements OrderService {
             throw new Exception(e.getMessage());
         }
     }
-/*
+
     public Page<Order> getAll(Pageable pageable) {
         try {
-            return  orderRepository.findAllOrderPage(pageable);
+            return orderRepository.findAll(pageable).map(Order::new);
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
-    }*/
+    }
 }

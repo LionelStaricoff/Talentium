@@ -31,7 +31,7 @@ public class OrderController {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         try{
-            return ResponseEntity.status(HttpStatus.OK).body( orderService2.findAll(pageRequest).map(Order::new));
+            return ResponseEntity.status(HttpStatus.OK).body( orderService.getAll(pageRequest));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error! Something went wrong");
         }
