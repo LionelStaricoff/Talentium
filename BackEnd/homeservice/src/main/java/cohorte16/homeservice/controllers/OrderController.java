@@ -22,16 +22,27 @@ public class OrderController {
 
     @Autowired
     private OrderServiceImpl orderService;
-    @Autowired
-    private OrderRepository orderService2;
 
-    @GetMapping(value = "/all/{id}", produces = "application/json")
-    public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") int page,
+
+    @GetMapping(value = "/allbyid/{id}", produces = "application/json")
+    public ResponseEntity<?> getAllbyid(@RequestParam(defaultValue = "0") int page,
                                     @RequestParam(defaultValue = "10") int size, @Valid @PathVariable Long id) {
         PageRequest pageRequest = PageRequest.of(page, size);
 
         try{
-            return ResponseEntity.status(HttpStatus.OK).body( orderService2.findOrdenesByClienteId(id,pageRequest));
+            return ResponseEntity.status(HttpStatus.OK).body( orderService.findOrdenesByClienteId(id,pageRequest));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error! Something went wrong");
+        }
+    }
+
+    @GetMapping(value = "/all", produces = "application/json")
+    public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") int page,
+                                    @RequestParam(defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body( orderService.getAll(pageRequest));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error! Something went wrong");
         }
