@@ -1,6 +1,6 @@
 import {Util} from './Util.js'
 
-//Util.existLogin();
+Util.existLogin();
 
 //saludo al usuario
 const saludo = document.querySelector('span');

@@ -31,7 +31,6 @@ export class Cartel {
             this.orden.comentarios = null;
             this.orden.orderstatus = 'INICIAL';
          
-
             console.log(this.orden);
 
             this.cerrar(this.datosOrdenes);
@@ -47,7 +46,6 @@ export class Cartel {
     agregarALFront() {
         const padre = document.querySelector(this.divPadre);
         padre.appendChild(this.crearCartel());
-
     }
 
     cerrar(hijo) {

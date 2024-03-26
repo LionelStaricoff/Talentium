@@ -79,6 +79,9 @@ section.header_y_container {
                     @media(max-width: 650px){
                         padding: 5px;
                     }
+                    @media(max-width: 350px){
+                        font-size: 0.8em;
+                    }
                     &:hover {
                         color: var(--azul_marino);
                     }
