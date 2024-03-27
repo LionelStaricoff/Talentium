@@ -58,8 +58,9 @@ export class User {
             body: JSON.stringify(userData)
         }).then(response => response.json())
             .then(data => {
+                
                 Util.guardarLogin(data);
-                Util.guardarAuthorization(data.password);
+               Util.guardarAuthorization(data.password);
                 Util.guardarImagen(data.avatar);
                 const usuariodb = data.name ?? null;
                 if (usuariodb !== null) {
