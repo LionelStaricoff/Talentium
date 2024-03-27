@@ -95,6 +95,7 @@ export class Ordenes {
 
         }).then(response => response.json())
             .then(data => {
+               
                 if (data.content.length > 0 ) {
                     data.content.forEach(d => {
                         const nuevaOrden = new OrdenesClientes(d, padreDto);
@@ -125,14 +126,6 @@ export class OrdenesClientes {
         this.comentario = datoOrden.comentarios ?? "";
         this.description = datoOrden.description;
         this.precio;
-        this.orden = {
-            "id": 1,
-            "profecional": NaN,
-            "precio": NaN,
-            "comentarios": this.comentario,
-            "orderstatus": "PENDIENTE"
-
-        }
     }
 
     crearOrden() {
@@ -144,21 +137,19 @@ export class OrdenesClientes {
         this.textarea.placeholder = 'comentario';
         this.textarea.cols = "30";
         this.textarea.rows = "8";
-        this.textarea.innerText = this.comentario;
-
+        this.textarea.readOnly = true;
+        this.textarea.value = this.datos.orderstatus;
+/*
         this.precio = document.createElement('input');
         this.precio.type = "number";
-        this.precio.placeholder = '$$$';
+        this.precio.placeholder = '$$$';*/
 
         const button = document.createElement('button');
-        button.innerText = "Crear";
+        button.innerText = "Eliminar";
         button.addEventListener('click', () => {
-
-            this.orden.comentarios = this.textarea.value;
-            this.orden.precio = this.precio.value;
-
-            console.log(this.orden);
-
+            this.eliminarOrden();
+          const padre = div.parentNode;
+          padre.removeChild(div);
         });
 
         const buttonX = document.createElement('button');
@@ -182,4 +173,31 @@ export class OrdenesClientes {
         const main = document.querySelector(this.divPadre);
         main.appendChild(this.crearOrden());
     }
+    eliminarOrden(padreDto){
+        const url = `${Util.conexionBase()}/api/order/${this.datos.id}`;
+        const userData = {
+            cliente_id: this.datos.id,
+            description: this.textarea
+        };
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+
+        }).then(response => response.json())
+            .then(data => {
+                    new cartelAviso('Orden eliminada', 'h2');
+
+            }
+            ).catch(err => {
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+
+            });
+
+
+    }
+    
 }
