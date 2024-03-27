@@ -95,13 +95,13 @@ export class Ordenes {
 
         }).then(response => response.json())
             .then(data => {
-               
-                if (data.content.length > 0 ) {
+
+                if (data.content.length > 0) {
                     data.content.forEach(d => {
                         const nuevaOrden = new OrdenesClientes(d, padreDto);
                         nuevaOrden.agregarAlFront();
-                    });                
-               
+                    });
+
                 } else {
                     new cartelAviso('no hay ordenes creadas', 'h2');
                 }
@@ -114,8 +114,8 @@ export class Ordenes {
 
     }
 
-    listarTodasLasOrdenes(padreDto){
-        const url = `${Util.conexionBase()}/api/order/all`;
+    listarTodasLasOrdenes(padreDto) {
+        const url = `${Util.conexionBase()}/api/order/allinitial`;
         const userData = {
             cliente_id: this.datos.id,
             description: this.textarea
@@ -130,13 +130,13 @@ export class Ordenes {
 
         }).then(response => response.json())
             .then(data => {
-               
-                if (data.content.length > 0 ) {
-                    data.content.forEach(d => {
-                        const nuevaOrden = new OrdenesClientes(d, padreDto);
+
+                if (data.length > 0) {
+                    data.forEach(d => {
+                        const nuevaOrden = new TomarOrdenesClientes(d, padreDto);
                         nuevaOrden.agregarAlFront();
-                    });                
-               
+                    });
+
                 } else {
                     new cartelAviso('no hay ordenes creadas', 'h2');
                 }
@@ -152,7 +152,7 @@ export class Ordenes {
 
 
 
-export class OrdenesClientes {
+class OrdenesClientes {
     constructor(datoOrden, divPadre) {
         this.datos = datoOrden;
         this.textarea;
@@ -173,17 +173,17 @@ export class OrdenesClientes {
         this.textarea.rows = "8";
         this.textarea.readOnly = true;
         this.textarea.value = this.datos.orderstatus;
-/*
-        this.precio = document.createElement('input');
-        this.precio.type = "number";
-        this.precio.placeholder = '$$$';*/
+        /*
+                this.precio = document.createElement('input');
+                this.precio.type = "number";
+                this.precio.placeholder = '$$$';*/
 
         const button = document.createElement('button');
         button.innerText = "Eliminar";
         button.addEventListener('click', () => {
             this.eliminarOrden();
-          const padre = div.parentNode;
-          padre.removeChild(div);
+            const padre = div.parentNode;
+            padre.removeChild(div);
         });
 
         const buttonX = document.createElement('button');
@@ -207,7 +207,7 @@ export class OrdenesClientes {
         const main = document.querySelector(this.divPadre);
         main.appendChild(this.crearOrden());
     }
-    eliminarOrden(padreDto){
+    eliminarOrden(padreDto) {
         const url = `${Util.conexionBase()}/api/order/${this.datos.id}`;
         const userData = {
             cliente_id: this.datos.id,
@@ -223,7 +223,7 @@ export class OrdenesClientes {
 
         }).then(response => response.json())
             .then(data => {
-                    new cartelAviso('Orden eliminada', 'h2');
+                new cartelAviso('Orden eliminada', 'h2');
 
             }
             ).catch(err => {
@@ -233,5 +233,96 @@ export class OrdenesClientes {
 
 
     }
-    
+
+}
+
+class TomarOrdenesClientes {
+    constructor(datoOrden, divPadre) {
+        this.datos = datoOrden;
+        this.textarea;
+        this.divPadre = divPadre ?? '#front';
+        this.comentario = datoOrden.comentarios ?? "";
+        this.description = datoOrden.description;
+        this.precio;
+    }
+
+    crearOrden() {
+        const div = document.createElement('div');
+        div.classList.add("CrearOrden");
+
+        this.textarea = document.createElement('textarea');
+        this.textarea.name = "descripcion";
+        this.textarea.placeholder = 'comentario';
+        this.textarea.cols = "30";
+        this.textarea.rows = "8";
+
+        this.precio = document.createElement('input');
+        this.precio.type = "number";
+        this.precio.placeholder = '$$$';
+
+        const button = document.createElement('button');
+        button.innerText = "Enviar presupuesto";
+        button.addEventListener('click', () => {
+            if (this.textarea.value !== '' && this.precio !=='') {
+                this.tomarOrden(this.textarea.value);
+                const padre = div.parentNode;
+                padre.removeChild(div);
+            } else {
+                new cartelAviso('Los campos no pueden estar vacíos', 'h2');
+            }
+
+        });
+
+        const buttonX = document.createElement('button');
+        buttonX.innerText = "X";
+        buttonX.addEventListener('click', () => {
+            div.classList.remove('aceptarOrden');
+            div.classList.add("CrearOrden");
+        });
+
+        const descripcionOrden = document.createElement('div');
+        descripcionOrden.innerText = this.description;
+        descripcionOrden.addEventListener('click', () => {
+            div.classList.remove('CrearOrden');
+            div.classList.add("aceptarOrden");
+        });
+
+        div.append(buttonX, this.textarea, this.precio, button, descripcionOrden);
+        return div;
+    }
+    agregarAlFront() {
+        const main = document.querySelector(this.divPadre);
+        main.appendChild(this.crearOrden());
+    }
+    tomarOrden() {
+        const url = `${Util.conexionBase()}/api/order/allpending`;
+        const userData = {
+            id: this.datos.id,
+            description: this.datos.description,
+            descriptionProfessional: this.textarea.value,
+            price: this.precio.value,
+            idClient: this.datos.clientId,
+            professional: Util.reuperarLogin()
+        };
+console.log(userData)
+        fetch(url, {
+            method: '',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+            body: JSON.stringify(userData)
+        }).then(response => response.json())
+            .then(data => {
+                new cartelAviso('Orden tomada', 'h2');
+
+            }
+            ).catch(err => {
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+
+            });
+
+
+    }
+
 }
