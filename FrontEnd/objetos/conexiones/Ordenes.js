@@ -295,18 +295,16 @@ class TomarOrdenesClientes {
         main.appendChild(this.crearOrden());
     }
     tomarOrden() {
-        const url = `${Util.conexionBase()}/api/order/allpending`;
+        const url = `${Util.conexionBase()}/api/order/${this.datos.id}`;
         const userData = {
-            id: this.datos.id,
-            description: this.datos.description,
+            idProfessional: Util.reuperarLogin().id,
             descriptionProfessional: this.textarea.value,
             price: this.precio.value,
-            idClient: this.datos.clientId,
-            professional: Util.reuperarLogin()
+           
         };
-console.log(userData)
+    
         fetch(url, {
-            method: '',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
