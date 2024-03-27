@@ -7,7 +7,7 @@ export class Ordenes {
         this.datos = dato;
         this.textarea;
         this.divPadre = divPadre ?? '#front';
-       
+
     }
 
     crearOrden() {
@@ -26,7 +26,7 @@ export class Ordenes {
         button.addEventListener('click', () => {
             //  console.log(this.datos);
             const textareaFront = document.querySelector('textarea');
-             this.textarea = textareaFront.value;
+            this.textarea = textareaFront.value;
             if (this.textarea !== '' && this.textarea !== undefined) {
                 this.crearOrdenConexionApi();
                 textareaFront.value = '';
@@ -68,7 +68,6 @@ export class Ordenes {
             .then(data => {
                 if (data !== null) {
                     new cartelAviso('Pedido enviado', 'h2');
-                    //Util.cambiarDePagina('sitio_del_cliente.html');
                 } else {
                     throw new Error('No se puedieron guardar los datos de las ordenes');
                 }
@@ -80,7 +79,37 @@ export class Ordenes {
 
     }
 
-    listarPorIdDelClient(){
+    listarPorIdDelClient(padreDto) {
+        const url = `${Util.conexionBase()}/api/order/allbyid/${this.datos.id}`;
+        const userData = {
+            cliente_id: this.datos.id,
+            description: this.textarea
+        };
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+
+        }).then(response => response.json())
+            .then(data => {
+                if (data.content.length > 0 ) {
+                    data.content.forEach(d => {
+                        const nuevaOrden = new OrdenesClientes(d, padreDto);
+                        nuevaOrden.agregarAlFront();
+                    });                
+               
+                } else {
+                    new cartelAviso('no hay ordenes creadas', 'h2');
+                }
+            }
+            ).catch(err => {
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+
+            });
+
 
     }
 }
@@ -89,17 +118,16 @@ export class Ordenes {
 
 
 export class OrdenesClientes {
-    constructor(datoOrden, profesionalDto, divPadre) {
+    constructor(datoOrden, divPadre) {
         this.datos = datoOrden;
         this.textarea;
         this.divPadre = divPadre ?? '#front';
         this.comentario = datoOrden.comentarios ?? "";
         this.description = datoOrden.description;
         this.precio;
-        this.profesional = profesionalDto;
         this.orden = {
             "id": 1,
-            "profecional": this.profesional.id,
+            "profecional": NaN,
             "precio": NaN,
             "comentarios": this.comentario,
             "orderstatus": "PENDIENTE"
@@ -142,12 +170,12 @@ export class OrdenesClientes {
 
         const descripcionOrden = document.createElement('div');
         descripcionOrden.innerText = this.description;
-        descripcionOrden.addEventListener('click', ()=>{
+        descripcionOrden.addEventListener('click', () => {
             div.classList.remove('CrearOrden');
             div.classList.add("aceptarOrden");
         });
 
-            div.append(buttonX, this.textarea, /*this.precio,*/ button, descripcionOrden);
+        div.append(buttonX, this.textarea, /*this.precio,*/ button, descripcionOrden);
         return div;
     }
     agregarAlFront() {

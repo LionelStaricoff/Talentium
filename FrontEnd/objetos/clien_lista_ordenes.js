@@ -1,7 +1,5 @@
 import { Util } from './Util.js';
 import { Ordenes } from './conexiones/Ordenes.js';
-import { OrdenesClientes } from './conexiones/Ordenes.js';
-import {datos} from './vista_profesional_listar_ordenes/js/Datos.js';
 
 Util.existLogin();
 
@@ -18,17 +16,12 @@ if (Util.reuperarImagen() !== null) {
     const logoUser = document.querySelector('#logoUser');
     logoUser.src = imagen;
 }
-/*
+
 const ordenes = new Ordenes(Util.reuperarLogin());
-ordenes.listarPorIdDelClient();*/
+ordenes.listarPorIdDelClient('.contenidoRecuadro');
 
 
 
-for(let i=0; i<15; i++){
-    const nuevaOrden = new OrdenesClientes(datos.orden(), datos.profesional(),'.contenidoRecuadro');
-    nuevaOrden.agregarAlFront();
-    }
-    
 
 
 const cerrarSesion = document.querySelector('.cerrar');
