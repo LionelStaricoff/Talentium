@@ -1,6 +1,7 @@
-import { Util } from './Util.js'
+import { Util } from './Util.js';
+import { Ordenes } from './conexiones/Ordenes.js';
 
-//Util.existLogin();
+Util.existLogin();
 
 //guardar pagina actual para poder volver con la flecha
 const buttons = document.querySelectorAll('li');
@@ -18,3 +19,6 @@ if (Util.reuperarImagen() !== null) {
 
 const cerrarSesion = document.querySelector('.cerrar');
 cerrarSesion.addEventListener('click', () => Util.borrarSession());
+
+const orden = new Ordenes(Util.reuperarLogin(),'.contenidoRecuadro');
+orden.agregarAlFront();

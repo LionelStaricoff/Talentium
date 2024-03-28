@@ -137,11 +137,11 @@ public class ProfessionalServiceImpl implements ProfessionalService {
 
     public Professional updateProfessionalFromDTO(Professional existingProfessional,
                                                   ProfessionalPutDTO professionalDTO) {
-        existingProfessional.setName(professionalDTO.name());
-        existingProfessional.setLastname(professionalDTO.lastname());
+
+
         existingProfessional.setCuit(professionalDTO.cuit());
         existingProfessional.setCbu(professionalDTO.cbu());
-        existingProfessional.setRating(professionalDTO.rating());
+
         existingProfessional.setProfession(professionalDTO.profession());
         existingProfessional.setDirection(new Direction(
                 existingProfessional.getDirection().getId(),
@@ -150,12 +150,7 @@ public class ProfessionalServiceImpl implements ProfessionalService {
                 professionalDTO.direction().province(),
                 professionalDTO.direction().location()
         ));
-        existingProfessional.setUser(new User(
-                existingProfessional.getUser().getId(),
-                professionalDTO.user().email(),
-                existingProfessional.getUser().getPassword(),
-                professionalDTO.user().avatar()
-        ));
+
         return existingProfessional;
     }
 }

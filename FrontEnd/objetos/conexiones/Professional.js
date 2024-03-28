@@ -53,17 +53,14 @@ export class Professional {
     }
 
     acrualizarProfessional(){
-        alert(Util.reuperarAuthorization())
+        
         const url = `${Util.conexionBase()}/api/professional/${Util.reuperarLogin().id}`;
         const userData = {
-            //name: this.name,
-            //lastname: this.lastname,
             phone: this.phone,
             cuit: this.cuit,
             cbu: this.cbu,
             profession: this.profession,
             direction: this.direction,
-           // user: this.user.id
         };
 console.log(userData)
          fetch(url, {
@@ -76,10 +73,11 @@ console.log(userData)
         }).then(response => response.json())
             .then(data => {
               
-                console.log('actualizar profesional: '+data);
+                new cartelAviso('Datos actualizados', 'h2');
                 //Util.cambiarDePagina('sitio_Prof.html'); 
             }
             ).catch(err => {
+                console.log(data)
                 new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
             });
     }
