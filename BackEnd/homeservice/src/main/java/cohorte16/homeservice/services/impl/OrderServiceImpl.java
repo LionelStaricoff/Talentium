@@ -209,9 +209,9 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public Object findOrdenesByClienteId(Long id, PageRequest pageRequest) {
+    public Page<Order> findOrdenesByClienteId(Long id, PageRequest pageRequest) {
         try {
-        return orderRepository.findOrdenesByClienteId(id,pageRequest);
+        return orderRepository.findOrdenesByClienteId(id,pageRequest).map(Order::new);
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }

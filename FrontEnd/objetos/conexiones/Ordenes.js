@@ -80,22 +80,18 @@ export class Ordenes {
     }
 
     listarPorIdDelClient(padreDto) {
-        const url = `${Util.conexionBase()}/api/order/allbyid/${this.datos.id}`;
-        const userData = {
-            cliente_id: this.datos.id,
-            description: this.textarea
-        };
-
+        const url = `${Util.conexionBase()}/api/order/allbyid/${Util.reuperarLogin().id}`;
+        alert(url)
         fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
-
+    
         }).then(response => response.json())
             .then(data => {
-
+console.log(data)
                 if (data.content.length > 0) {
                     data.content.forEach(d => {
                         const nuevaOrden = new OrdenesClientes(d, padreDto);
