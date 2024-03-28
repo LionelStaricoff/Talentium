@@ -2,7 +2,7 @@
 
 #front {
   max-width: 1000px;
-  width: min(100%,50em);
+  width: min(90%,50em);
   height: 80vh;
   gap: 18px;
   background-color: var(--azul_principal);
@@ -23,7 +23,7 @@
   .CrearOrden {
     box-shadow: -2px 2px 3px 2px rgba(253, 251, 251, 0.477);
     border-radius: 8px;
-    min-width: 20em;
+    min-width: 16em;
     width: 100%;
     height: fit-content;
     padding: 10px;
@@ -34,6 +34,7 @@
     position: relative;
     text-align: left;
     background-color: var(--azul_oscuro);
+
     
 
     textarea,
@@ -52,6 +53,8 @@
 
     div {
       display: block;
+
+      
     
     }
   }

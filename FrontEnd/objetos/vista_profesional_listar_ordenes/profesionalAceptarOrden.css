@@ -7,7 +7,7 @@
   gap: 15px;
   background-color: var(--azul_principal);
   border-radius: 10px;
-  box-shadow: 0px 5px 10px var(--negro);
+  box-shadow: -5px 5px 10px var(--negro);
   padding: 30px;
   position: absolute;
   top: 50%;
@@ -22,7 +22,6 @@
     opacity: 80%;
     margin-bottom: 15px;
     padding: 3px;
-    box-shadow: 0px 2px 2px var(--shadow-color);
     border-radius: 8px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 1em;
@@ -32,19 +31,20 @@
     display: inline;
     text-align: center;
     border-radius: 15px;
-    width: 50%;
+    width: 80%;
+    height: 30px;
     margin: 0 auto;
     margin-bottom: 1em;
-    opacity: 50%;
+    opacity: 80%;
   }
 
   button {
     display: inline;
     color: var(--azul_clarisimo);
-    background-color: inherit;
+    background-color: var(--azul_marino);
     border-radius: 8px;
     max-width: 100%;
-    max-height: fit-content;
+    height: 30px;
     box-shadow: 0px 1px 1px 1px var(--negro);
     border: none;
 
@@ -58,7 +58,8 @@
 
     &:first-child {
       display: inline;
-      width: 3em;
+      width: 2.5em;
+      height: 1.5em;
       position: absolute;
       right: 0;
       top: 0;

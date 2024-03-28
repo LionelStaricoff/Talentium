@@ -5,7 +5,7 @@ import { Professional } from './conexiones/Professional.js';
 
 //try {
 
-//Util.existLogin();
+Util.existLogin();
 
 //saludo al usuario
 const saludo = document.querySelector('span');
