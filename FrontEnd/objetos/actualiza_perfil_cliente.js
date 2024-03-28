@@ -1,5 +1,6 @@
 import { Util } from './Util.js'
 import { Client } from './conexiones/Client.js'
+import { cartelAviso } from './cartel_aceptar_cancelar/cartelAviso.js';
 
 Util.existLogin();
 
@@ -40,7 +41,15 @@ actualizarPerfil.addEventListener('click', () => {
         inputs[5].value, Util.reuperarLogin().user.id,
         inputs[6].value, inputs[7].value, inputs[8].value, inputs[9].value);
 
-    cliente.acrualizarCliente();
+  //verificando que los campos no esten vacios
+    if (Util.reuperarLogin().name !=='' && Util.reuperarLogin().lastname!=='' &&  inputs[4].value !=='' && 
+    inputs[5].value !=='' &&  Util.reuperarLogin().user.id !=='' && 
+    inputs[6].value !=='' &&  inputs[7].value !=='' &&  inputs[8].value !=='' &&  inputs[9].value!=='') {
+        cliente.acrualizarCliente();
+    } else {
+        new cartelAviso('Los campos deben estar todos completos', 'h2');
+    }
+
 
 });
 
