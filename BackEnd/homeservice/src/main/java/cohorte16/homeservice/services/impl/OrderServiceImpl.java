@@ -216,4 +216,12 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException(e);
         }
     }
+
+    public Page<Order> findOrdenesByProfesionalId(Long id, PageRequest pageRequest) {
+        try {
+            return orderRepository.findOrdenesByProfesionalId(id,pageRequest).map(Order::new);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

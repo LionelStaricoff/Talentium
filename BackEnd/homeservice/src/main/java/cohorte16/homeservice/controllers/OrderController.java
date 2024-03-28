@@ -36,6 +36,18 @@ public class OrderController {
         }
     }
 
+    @GetMapping(value = "/allbyprofessionalid/{id}", produces = "application/json")
+    public ResponseEntity<?> getAllbyprofessionalid(@RequestParam(defaultValue = "0") int page,
+                                        @RequestParam(defaultValue = "10") int size, @Valid @PathVariable Long id) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body( orderService.findOrdenesByProfesionalId(id,pageRequest));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error! Something went wrong");
+        }
+    }
+
     @GetMapping(value = "/all", produces = "application/json")
     public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") int page,
                                     @RequestParam(defaultValue = "10") int size) {
