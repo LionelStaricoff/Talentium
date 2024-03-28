@@ -70,4 +70,6 @@ public class Professional {
     @DecimalMin(value = "0.00")
     private BigDecimal wallet;
 
+    @OneToMany(mappedBy = "professional")
+    private List<Order> professional;
 }

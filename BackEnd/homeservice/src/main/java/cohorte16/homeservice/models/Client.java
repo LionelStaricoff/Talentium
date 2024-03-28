@@ -8,6 +8,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -56,7 +58,8 @@ public class Client {
     @Column(name = "activo")
     private Boolean active = true;
 
-
+    @OneToMany(mappedBy = "client")
+    private List<Order> client;
     public Client(ClientDTO clientDTO) {
 
         this.name = clientDTO.name();
