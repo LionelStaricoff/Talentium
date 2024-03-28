@@ -58,23 +58,26 @@ export class User {
             body: JSON.stringify(userData)
         }).then(response => response.json())
             .then(data => {
+                
                 Util.guardarLogin(data);
-                Util.guardarAuthorization(data.password);
+               Util.guardarAuthorization(data.password);
+                Util.guardarImagen(data.avatar);
                 const usuariodb = data.name ?? null;
                 if (usuariodb !== null) {
                   
                     if (data.cuit !== undefined) {
                         Util.guardarAuthorization(data.lastname);
-                        Util.guardarImagen(data.user.avatar);
+                        Util.guardarImagen(data.user.avatar ?? '');
                         Util.cambiarDePagina('sitio_Prof.html');
                     } else {
                         Util.guardarAuthorization(data.lastname);
+                        Util.guardarImagen(data.user.avatar ?? '');
                         Util.cambiarDePagina('sitio_del_cliente.html');
                     }
                 } else {
 
                     Util.guardarAuthorization(data.lastname);
-                    Util.guardarImagen(data.user.avatar);
+              
                     Util.cambiarDePagina('invitaAregistrar.html');
                 }
             }
