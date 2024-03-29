@@ -81,7 +81,7 @@ export class Ordenes {
 
     listarPorIdDelClient(padreDto) {
         const url = `${Util.conexionBase()}/api/order/allbyid/${Util.reuperarLogin().id}`;
-        alert(url)
+   
         fetch(url, {
             method: 'GET',
             headers: {
@@ -91,7 +91,7 @@ export class Ordenes {
     
         }).then(response => response.json())
             .then(data => {
-console.log(data)
+
                 if (data.content.length > 0) {
                     data.content.forEach(d => {
                         const nuevaOrden = new OrdenesClientes(d, padreDto);
@@ -144,8 +144,8 @@ console.log(data)
 
     }
 
-    listarTodasLasOrdenesPendientesDelProfesional(padreDto) {
-            const url = `${Util.conexionBase()}/api/order/allbyprofessionalidOrderstatus/${Util.reuperarLogin().id}/Pendiente`;
+    listarTodasLasOrdenesPendientesDelProfesional(padreDto, status) {
+            const url = `${Util.conexionBase()}/api/order/allbyprofessionalidOrderstatus/${Util.reuperarLogin().id}/${status}`;
             const userData = {
                 cliente_id: this.datos.id,
                 description: this.textarea
@@ -176,6 +176,36 @@ console.log(data)
     
                 });
     
+    }
+
+    ProfesionalFindAllById(padreDto){
+        const url = `${Util.conexionBase()}/api/order/allbyprofessionalid/${Util.reuperarLogin().id}`;
+    
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+    
+        }).then(response => response.json())
+            .then(data => {
+
+                if (data.content.length > 0) {
+                    data.content.forEach(d => {
+                        const nuevaOrden = new OrdenesClientes(d, padreDto);
+                        nuevaOrden.agregarAlFront();
+                    });
+
+                } else {
+                    new cartelAviso('no hay ordenes creadas', 'h2');
+                }
+            }
+            ).catch(err => {
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+
+            });
+
     }
 }
 
