@@ -4,6 +4,8 @@ import cohorte16.homeservice.dtos.OrderDTO;
 import cohorte16.homeservice.dtos.OrderProfessionalDTO;
 import cohorte16.homeservice.dtos.OrderRatingDTO;
 import cohorte16.homeservice.dtos.UpdateOrderDTO;
+import cohorte16.homeservice.enums.Orderstatus;
+import cohorte16.homeservice.enums.Profession;
 import cohorte16.homeservice.models.Order;
 import cohorte16.homeservice.repositories.OrderRepository;
 import cohorte16.homeservice.services.OrderService;
@@ -43,6 +45,19 @@ public class OrderController {
 
         try{
             return ResponseEntity.status(HttpStatus.OK).body( orderService.findOrdenesByProfesionalId(id,pageRequest));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error! Something went wrong");
+        }
+    }
+
+
+    @GetMapping(value = "/allbyprofessionalidOrderstatus/{id}/{orderstatus}", produces = "application/json")
+    public ResponseEntity<?> getAllbyprofessionalidOrderstatus(@RequestParam(defaultValue = "0") int page,
+                                                    @RequestParam(defaultValue = "10") int size, @Valid @PathVariable Long id,@Valid @PathVariable String orderstatus) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body( orderService.findOrdenesByProfesionalIdPendiente(id,  Orderstatus.fromString(orderstatus) , pageRequest));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error! Something went wrong");
         }

@@ -1,6 +1,7 @@
 package cohorte16.homeservice.repositories;
 
 import cohorte16.homeservice.enums.Orderstatus;
+import cohorte16.homeservice.enums.Profession;
 import cohorte16.homeservice.models.Order;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
@@ -27,4 +29,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT o FROM Order o  WHERE o.professional.id = :professionalId")
     Page<Order> findOrdenesByProfesionalId(@Param("professionalId") Long professionalId, Pageable pageable);
+
+    @Query("SELECT o FROM Order o  WHERE o.professional.id = :professionalId AND o.orderstatus =:orderstatus")
+    Page<Order>findOrdenesByProfesionalIdPendiente(@Param("professionalId") Long professionalId,@Param("orderstatus")  Orderstatus orderstatus, PageRequest pageRequest);
 }
