@@ -1,7 +1,7 @@
 import {Util} from './Util.js';
 import { Ordenes } from './conexiones/Ordenes.js';
 
-//Util.existLogin();
+Util.existLogin();
 
 if(Util.reuperarImagen() !== null){
 const imagen = Util.reuperarImagen() ;
