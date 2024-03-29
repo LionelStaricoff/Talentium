@@ -2,7 +2,7 @@ import { Util } from './Util.js'
 import { Client } from './conexiones/Client.js'
 import { cartelAviso } from './cartel_aceptar_cancelar/cartelAviso.js';
 
-Util.existLogin();
+//Util.existLogin();
 
 //saludo al usuario
 const saludo = document.querySelector('span');
