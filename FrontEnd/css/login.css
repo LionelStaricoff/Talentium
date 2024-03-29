@@ -23,7 +23,6 @@ body {
 
     .login_card {
         max-width: 280px;
-        width: 300px;
         height: 325px;
         display: grid;
         grid-template-rows: 3;

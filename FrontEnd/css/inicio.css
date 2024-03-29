@@ -468,12 +468,13 @@ footer {
     .franja_NoCountry p {
         text-align: center;
         background-color: #436ff3;
-        height: 35px; 
+        height: auto; 
         min-height: 25px;
         color: white;
         margin-top: 40px;
         place-content: center;
         line-height: 30px;
+
 
         img{
             filter: invert(100%);

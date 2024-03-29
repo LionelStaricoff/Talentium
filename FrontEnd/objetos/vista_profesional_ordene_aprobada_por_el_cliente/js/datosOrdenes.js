@@ -10,7 +10,6 @@ export class datosOrdenes {
         this.description = ordenDto.description;
         this.profesional = profesionalDto;
         this.aprobada = aprobada ?? false;
-     
     }
 
     crearOrden() {
@@ -33,7 +32,7 @@ export class datosOrdenes {
         cancelarTrabajo.innerText = "Cancelar trabajo";
         cancelarTrabajo.addEventListener('click', () => {
 
-            const cartel = new Cartel('¿Estas seguro de eliminar la orden?', this.orden, this.div);
+            const cartel = new Cartel('¿Estás seguro de eliminar la orden?', this.orden, this.div);
             cartel.agregarALFront();
 
         });

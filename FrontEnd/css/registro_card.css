@@ -21,8 +21,7 @@ body {
 }
 
 .registro_card {
-    min-width: 350px;
-    width: 300px;
+    min-width: 330px;
     height: 450px;
     display: grid;
     grid-template-rows: 3;
