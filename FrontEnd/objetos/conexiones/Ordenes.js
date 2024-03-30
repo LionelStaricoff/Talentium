@@ -524,7 +524,7 @@ class AceptarOrdenesClientes {
     }
 
     ordenAceptarPresupuesto() {
-        const url = `${Util.conexionBase()}/api/order/acepted${this.datos.id}`;
+        const url = `${Util.conexionBase()}/api/order/acepted/${this.datos.id}`;
      
     
         fetch(url, {
@@ -533,7 +533,7 @@ class AceptarOrdenesClientes {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
-            body: JSON.stringify(userData)
+       
         }).then(response => response.json())
             .then(data => {
                 new cartelAviso('Presupuest aceptado', 'h2');
@@ -548,7 +548,7 @@ class AceptarOrdenesClientes {
     }
 
     ordenCancelar() {
-        const url = `${Util.conexionBase()}/api/order/cancelorder${this.datos.id}`;
+        const url = `${Util.conexionBase()}/api/order/cancelorder/${this.datos.id}`;
      
     
         fetch(url, {
@@ -557,7 +557,7 @@ class AceptarOrdenesClientes {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
-            body: JSON.stringify(userData)
+       
         }).then(response => response.json())
             .then(data => {
                 new cartelAviso('Presupuest aceptado', 'h2');

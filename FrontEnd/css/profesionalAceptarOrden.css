@@ -59,6 +59,7 @@ padding: 0.5em 0;
       right: 0;
       top: 0;
       margin: .5em;
+      z-index: 1;
     }
   }
 
