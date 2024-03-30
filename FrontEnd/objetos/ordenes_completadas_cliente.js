@@ -15,7 +15,7 @@ volverbutton.addEventListener('click', () => Util.volverUltimaPagina());
 
 
 const ordenes = new Ordenes(Util.reuperarLogin());
-ordenes.listarTodasLasOrdenesPendientesDelcliente('.contenidoRecuadro', 'Aprobada');
+ordenes.listarTodasLasOrdenesPendientesDelcliente('.contenidoRecuadro', 'Finalizada');
 
 const cerrarSesion = document.querySelector('.cerrar');
 cerrarSesion.addEventListener('click', () => Util.borrarSession());
