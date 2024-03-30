@@ -1,6 +1,5 @@
 import { Util } from './Util.js'
 import { Ordenes } from './conexiones/Ordenes.js';
-
 Util.existLogin();
 
 if (Util.reuperarImagen() !== null) {
@@ -13,9 +12,9 @@ if (Util.reuperarImagen() !== null) {
 const volverbutton = document.querySelector('#volverbutton');
 volverbutton.addEventListener('click', () => Util.volverUltimaPagina());
 
-
 const ordenes = new Ordenes(Util.reuperarLogin());
-ordenes.listarTodasLasOrdenesPendientesDelProfesional('.contenidoRecuadro', 'Finalizada');
+ordenes.listarTodasLasOrdenesPendientesDelProfesional('.contenidoRecuadro', 'Aprobada');
+
 
 const cerrarSesion = document.querySelector('.cerrar');
 cerrarSesion.addEventListener('click', () => Util.borrarSession());

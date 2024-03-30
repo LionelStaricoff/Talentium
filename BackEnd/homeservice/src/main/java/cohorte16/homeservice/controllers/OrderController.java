@@ -63,6 +63,17 @@ public class OrderController {
         }
     }
 
+    @GetMapping(value = "/allbyclientidOrderstatus/{id}/{orderstatus}", produces = "application/json")
+    public ResponseEntity<?> getAllbyclientidOrderstatus(@RequestParam(defaultValue = "0") int page,
+                                                               @RequestParam(defaultValue = "10") int size, @Valid @PathVariable Long id,@Valid @PathVariable String orderstatus) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body( orderService.findOrdenesByClientIdPendiente(id,  Orderstatus.fromString(orderstatus) , pageRequest));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error! Something went wrong");
+        }
+    }
     @GetMapping(value = "/all", produces = "application/json")
     public ResponseEntity<?> getAll(@RequestParam(defaultValue = "0") int page,
                                     @RequestParam(defaultValue = "10") int size) {

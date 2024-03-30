@@ -207,6 +207,40 @@ export class Ordenes {
             });
 
     }
+
+    listarTodasLasOrdenesPendientesDelcliente(padreDto, status) {
+        const url = `${Util.conexionBase()}/api/order/allbyclientidOrderstatus/${Util.reuperarLogin().id}/${status}`;
+        const userData = {
+            cliente_id: this.datos.id,
+            description: this.textarea
+        };
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+
+        }).then(response => response.json())
+            .then(data => {
+
+                if (data.content.length > 0) {
+                    data.content.forEach(d => {
+                        const nuevaOrden = new TomarOrdenesClientes(d, padreDto);
+                        nuevaOrden.agregarAlFront();
+                    });
+
+                } else {
+                    new cartelAviso('no hay ordenes creadas', 'h2');
+                }
+            }
+            ).catch(err => {
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+
+            });
+
+}
 }
 
 

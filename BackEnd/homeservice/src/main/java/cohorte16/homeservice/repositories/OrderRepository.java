@@ -32,4 +32,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     @Query("SELECT o FROM Order o  WHERE o.professional.id = :professionalId AND o.orderstatus =:orderstatus")
     Page<Order>findOrdenesByProfesionalIdPendiente(@Param("professionalId") Long professionalId,@Param("orderstatus")  Orderstatus orderstatus, PageRequest pageRequest);
+
+    @Query("SELECT o FROM Order o  WHERE o.client.id = :clientId AND o.orderstatus =:orderstatus")
+    Page<Order> findOrdenesByClientIdPendiente(@Param("clientId")Long clientId,@Param("orderstatus")  Orderstatus orderstatus, PageRequest pageRequest);
 }
