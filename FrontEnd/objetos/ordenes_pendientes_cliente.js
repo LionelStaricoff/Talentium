@@ -13,7 +13,7 @@ const volverbutton = document.querySelector('#volverbutton');
 volverbutton.addEventListener('click', () => Util.volverUltimaPagina());
 
 const ordenes = new Ordenes(Util.reuperarLogin());
-ordenes.listarTodasLasOrdenesPendientesDelProfesional('.contenidoRecuadro', 'Aprobada');
+ordenes.listarTodasLasOrdenesPendientesDelcliente('.contenidoRecuadro', 'Aprobada');
 
 
 const cerrarSesion = document.querySelector('.cerrar');
