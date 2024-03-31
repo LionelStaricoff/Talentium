@@ -25,7 +25,7 @@ public class Order {
     @Column(name = "descripcion")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profesional_id", referencedColumnName = "id")
     @JsonIgnore
     private Professional professional;
@@ -45,7 +45,7 @@ public class Order {
     @Enumerated(value = EnumType.STRING)
     private Orderstatus orderstatus;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     @JsonIgnore
     private Client client;
@@ -65,4 +65,6 @@ public class Order {
         this.orderstatus = order.getOrderstatus();
         this.client = order.getClient();
     }
+
+
 }

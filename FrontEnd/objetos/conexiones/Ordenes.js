@@ -592,8 +592,9 @@ class profesionalOrdenesPendienes {
         this.textarea.cols = "30";
         this.textarea.rows = "8";
         this.textarea.readOnly = true;
-        this.textarea.value = this.datos.description_professional;
-       
+        this.textarea.value = `
+                                ${this.datos.description_professional}`;
+       console.log(this.datos)
 
         this.precio = document.createElement('input');
         this.precio.type = "text";
