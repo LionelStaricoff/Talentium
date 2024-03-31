@@ -236,7 +236,7 @@ public class OrderServiceImpl implements OrderService {
 
     public Object findOrdenesByClientIdPendiente(Long id, Orderstatus orderstatus, PageRequest pageRequest) {
         try {
-            return orderRepository.findOrdenesByClientIdPendiente(id,  orderstatus, pageRequest).map(Order::new);
+            return orderRepository.findOrdenesByClientIdPendiente(id,  orderstatus, pageRequest);//.map(Order::new);
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }
