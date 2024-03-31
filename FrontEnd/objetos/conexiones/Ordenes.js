@@ -224,8 +224,9 @@ export class Ordenes {
 
         }).then(response => response.json())
             .then(data => {
-
+                console.log(Util.reuperarLogin().id)
                 if (data.content.length > 0) {
+                 
                     data.content.forEach(d => {
                         const nuevaOrden = new AceptarOrdenesClientes(d, padreDto);
                         nuevaOrden.agregarAlFront();
@@ -574,7 +575,14 @@ class AceptarOrdenesClientes {
 
 class profesionalOrdenesPendienes {
     constructor(datoOrden, divPadre) {
-        this.datos = datoOrden;
+        this.datos = datoOrden[4];
+        this.client = {
+            id:datoOrden[0],
+            name: datoOrden[1],
+            lastname:datoOrden[2],
+            phone:datoOrden[3]
+        };
+        this.professional = datoOrden[5];
         this.textarea;
         this.divPadre = divPadre ?? '#front';
         this.comentario = datoOrden.comentarios ?? "";
@@ -592,9 +600,13 @@ class profesionalOrdenesPendienes {
         this.textarea.cols = "30";
         this.textarea.rows = "8";
         this.textarea.readOnly = true;
-        this.textarea.value = `
-                                ${this.datos.description_professional}`;
-       console.log(this.datos)
+        this.textarea.value = ` cliente:
+                                nombre: ${this.client.name}
+                                apellido: ${this.client.lastname}
+                                telefono: ${this.client.phone}
+
+        ${this.datos.description_professional}`;
+    
 
         this.precio = document.createElement('input');
         this.precio.type = "text";
@@ -626,7 +638,7 @@ class profesionalOrdenesPendienes {
         });
 
         const descripcionOrden = document.createElement('div');
-        descripcionOrden.innerText = this.description;
+        descripcionOrden.innerText = this.datos.description;
         descripcionOrden.addEventListener('click', () => {
             div.classList.remove('CrearOrden');
             div.classList.add("aceptarOrden");
