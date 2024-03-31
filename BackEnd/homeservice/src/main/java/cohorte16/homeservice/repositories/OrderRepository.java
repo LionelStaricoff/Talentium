@@ -30,8 +30,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o  WHERE o.professional.id = :professionalId")
     Page<Order> findOrdenesByProfesionalId(@Param("professionalId") Long professionalId, Pageable pageable);
 
-    @Query("SELECT DISTINCT o, c FROM Order o  JOIN FETCH o.professional p  JOIN FETCH o.client c WHERE o.professional.id = :professionalId AND o.orderstatus = :orderstatus")
+    @Query("SELECT DISTINCT o.professional.id,o.professional.name, o.professional.lastname, o.professional.phone, o, c FROM Order o  JOIN FETCH o.professional p  JOIN FETCH o.client c WHERE o.professional.id = :professionalId AND o.orderstatus = :orderstatus")
     Page<?>  findOrdenesByProfesionalIdPendiente(@Param("professionalId") Long professionalId, @Param("orderstatus") Orderstatus orderstatus, PageRequest pageRequest);
-    @Query("SELECT DISTINCT  o, c FROM Order o JOIN FETCH o.professional p JOIN FETCH o.client c WHERE o.client.id = :clientId AND o.orderstatus =:orderstatus")
+    @Query("SELECT DISTINCT o.professional.id,o.professional.name, o.professional.lastname, o.professional.phone, o, c FROM Order o JOIN FETCH o.professional p JOIN FETCH o.client c WHERE o.client.id = :clientId AND o.orderstatus =:orderstatus")
     Page<?> findOrdenesByClientIdPendiente(@Param("clientId")Long clientId,@Param("orderstatus")  Orderstatus orderstatus, PageRequest pageRequest);
 }
