@@ -58,7 +58,7 @@ public class Client {
     @Column(name = "activo")
     private Boolean active = true;
 
-   @OneToMany(mappedBy = "client")
+   @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> client;
     public Client(ClientDTO clientDTO) {
 

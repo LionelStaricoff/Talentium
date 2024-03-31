@@ -70,7 +70,7 @@ public class Professional {
     @DecimalMin(value = "0.00")
     private BigDecimal wallet;
 
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "professional", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Order> professional;
 
 }

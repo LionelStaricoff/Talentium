@@ -25,7 +25,7 @@ public class Order {
     @Column(name = "descripcion")
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "profesional_id", referencedColumnName = "id")
     @JsonIgnore
     private Professional professional;
@@ -45,7 +45,7 @@ public class Order {
     @Enumerated(value = EnumType.STRING)
     private Orderstatus orderstatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
     @JsonIgnore
     private Client client;
