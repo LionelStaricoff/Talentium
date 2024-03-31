@@ -58,7 +58,7 @@ public class Client {
     @Column(name = "activo")
     private Boolean active = true;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+   @OneToMany(mappedBy = "client")
     private List<Order> client;
     public Client(ClientDTO clientDTO) {
 

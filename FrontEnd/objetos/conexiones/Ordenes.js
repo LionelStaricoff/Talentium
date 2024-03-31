@@ -224,7 +224,7 @@ export class Ordenes {
 
         }).then(response => response.json())
             .then(data => {
-                console.log(Util.reuperarLogin().id)
+                console.log(data)
                 if (data.content.length > 0) {
                  
                     data.content.forEach(d => {
