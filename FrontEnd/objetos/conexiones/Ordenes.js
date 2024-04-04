@@ -607,16 +607,9 @@ class AceptarOrdenesClientesAprobada {
         this.precio.value = '$ '+this.datos.price;
 
         const button = document.createElement('button');
-        button.innerText = "Aceptar presupuesto";
+        button.innerText = this.datos.orderstatus;
         button.addEventListener('click', () => {
-            if (this.textarea.value !== '' && this.precio !=='') {
-                this.ordenAceptarPresupuesto();
-                const padre = div.parentNode;
-                padre.removeChild(div);
-            } else {
-                new cartelAviso('Los campos no pueden estar vacíos', 'h2');
-            }
-
+                new cartelAviso('Datos del profesional', 'h2'); 
         });
 
         const buttonCanelar = document.createElement('button');
