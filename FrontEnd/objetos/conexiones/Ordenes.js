@@ -1,5 +1,6 @@
 import { cartelAviso } from '../cartel_aceptar_cancelar/cartelAviso.js';
 import { Util } from '../Util.js';
+import { Presupuesto } from '../vista_Plataforma_pago/presupuesto.js';
 
 
 export class Ordenes {
@@ -457,7 +458,8 @@ class AceptarOrdenesClientes {
         button.innerText = "Aceptar presupuesto";
         button.addEventListener('click', () => {
             if (this.textarea.value !== '' && this.precio !== '') {
-                this.ordenAceptarPresupuesto();
+                new Presupuesto(this.datos, 'h2');
+              //  this.ordenAceptarPresupuesto();
                 const padre = div.parentNode;
                 padre.removeChild(div);
             } else {
