@@ -81,14 +81,14 @@ export class Ordenes {
 
     listarPorIdDelClient(padreDto) {
         const url = `${Util.conexionBase()}/api/order/allbyid/${Util.reuperarLogin().id}`;
-   
+
         fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
-    
+
         }).then(response => response.json())
             .then(data => {
 
@@ -145,49 +145,49 @@ export class Ordenes {
     }
 
     listarTodasLasOrdenesPendientesDelProfesional(padreDto, status) {
-            const url = `${Util.conexionBase()}/api/order/allbyprofessionalidOrderstatus/${Util.reuperarLogin().id}/${status}`;
-            const userData = {
-                cliente_id: this.datos.id,
-                description: this.textarea
-            };
-    
-            fetch(url, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer${Util.reuperarAuthorization()}`
-                },
-    
-            }).then(response => response.json())
-                .then(data => {
-   
-                    if (data.content.length > 0) {
-                        data.content.forEach(d => {
-                            const nuevaOrden = new profesionalOrdenesPendienes(d, padreDto);
-                            nuevaOrden.agregarAlFront();
-                        });
-    
-                    } else {
-                        new cartelAviso('no hay ordenes creadas', 'h2');
-                    }
-                }
-                ).catch(err => {
-                    new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
-    
-                });
-    
-    }
+        const url = `${Util.conexionBase()}/api/order/allbyprofessionalidOrderstatus/${Util.reuperarLogin().id}/${status}`;
+        const userData = {
+            cliente_id: this.datos.id,
+            description: this.textarea
+        };
 
-    ProfesionalFindAllById(padreDto){
-        const url = `${Util.conexionBase()}/api/order/allbyprofessionalid/${Util.reuperarLogin().id}`;
-    
         fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
-    
+
+        }).then(response => response.json())
+            .then(data => {
+
+                if (data.content.length > 0) {
+                    data.content.forEach(d => {
+                        const nuevaOrden = new profesionalOrdenesPendienes(d, padreDto);
+                        nuevaOrden.agregarAlFront();
+                    });
+
+                } else {
+                    new cartelAviso('no hay ordenes creadas', 'h2');
+                }
+            }
+            ).catch(err => {
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+
+            });
+
+    }
+
+    ProfesionalFindAllById(padreDto) {
+        const url = `${Util.conexionBase()}/api/order/allbyprofessionalid/${Util.reuperarLogin().id}`;
+
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+
         }).then(response => response.json())
             .then(data => {
 
@@ -226,12 +226,12 @@ export class Ordenes {
             .then(data => {
                 console.log(data)
                 if (data.content.length > 0) {
-                 
+
                     data.content.forEach(d => {
                         let nuevaOrden;
                         console.log(d)
-                        if(d.orderstatus = "Pendiente") nuevaOrden = new AceptarOrdenesClientes(d, padreDto);
-                        if(d.orderstatus = "Aprobada") nuevaOrden = new AceptarOrdenesClientesAprobada(d, padreDto);
+                        if (d.orderstatus = "Pendiente") nuevaOrden = new AceptarOrdenesClientes(d, padreDto);
+                        if (d.orderstatus = "Aprobada") nuevaOrden = new AceptarOrdenesClientesAprobada(d, padreDto);
 
                         nuevaOrden.agregarAlFront();
                     });
@@ -245,7 +245,7 @@ export class Ordenes {
 
             });
 
-}
+    }
 }
 
 
@@ -272,11 +272,11 @@ class OrdenesClientes {
         this.textarea.rows = "8";
         this.textarea.readOnly = true;
         this.textarea.value = this.datos.description_professional;
-        
-                this.precio = document.createElement('input');
-                this.precio.type = "text";
-                this.precio.readOnly = true;
-                this.precio.placeholder ='Status: '+ this.datos.orderstatus
+
+        this.precio = document.createElement('input');
+        this.precio.type = "text";
+        this.precio.readOnly = true;
+        this.precio.placeholder = 'Status: ' + this.datos.orderstatus
 
         const button = document.createElement('button');
         button.innerText = "Eliminar";
@@ -363,7 +363,7 @@ class TomarOrdenesClientes {
         const button = document.createElement('button');
         button.innerText = "Enviar presupuesto";
         button.addEventListener('click', () => {
-            if (this.textarea.value !== '' && this.precio !=='') {
+            if (this.textarea.value !== '' && this.precio !== '') {
                 this.tomarOrden(this.textarea.value);
                 const padre = div.parentNode;
                 padre.removeChild(div);
@@ -400,9 +400,9 @@ class TomarOrdenesClientes {
             idProfessional: Util.reuperarLogin().id,
             descriptionProfessional: this.textarea.value,
             price: this.precio.value,
-           
+
         };
-    
+
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -446,17 +446,17 @@ class AceptarOrdenesClientes {
         this.textarea.rows = "8";
         this.textarea.readOnly = true;
         this.textarea.value = this.datos.description_professional;
-       
+
 
         this.precio = document.createElement('input');
         this.precio.type = "text";
         this.precio.readOnly = true;
-        this.precio.value = '$ '+this.datos.price;
+        this.precio.value = '$ ' + this.datos.price;
 
         const button = document.createElement('button');
         button.innerText = "Aceptar presupuesto";
         button.addEventListener('click', () => {
-            if (this.textarea.value !== '' && this.precio !=='') {
+            if (this.textarea.value !== '' && this.precio !== '') {
                 this.ordenAceptarPresupuesto();
                 const padre = div.parentNode;
                 padre.removeChild(div);
@@ -469,7 +469,7 @@ class AceptarOrdenesClientes {
         const buttonCanelar = document.createElement('button');
         buttonCanelar.innerText = "Cancelar presupuesto";
         buttonCanelar.addEventListener('click', () => {
-            if (this.textarea.value !== '' && this.precio !=='') {
+            if (this.textarea.value !== '' && this.precio !== '') {
                 this.ordenCancelar();
                 const padre = div.parentNode;
                 padre.removeChild(div);
@@ -493,7 +493,7 @@ class AceptarOrdenesClientes {
             div.classList.add("aceptarOrden");
         });
 
-        div.append(buttonX, this.textarea, this.precio, button,buttonCanelar, descripcionOrden);
+        div.append(buttonX, this.textarea, this.precio, button, buttonCanelar, descripcionOrden);
         return div;
     }
     agregarAlFront() {
@@ -506,9 +506,9 @@ class AceptarOrdenesClientes {
             idProfessional: Util.reuperarLogin().id,
             descriptionProfessional: this.textarea.value,
             price: this.precio.value,
-           
+
         };
-    
+
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -531,15 +531,15 @@ class AceptarOrdenesClientes {
 
     ordenAceptarPresupuesto() {
         const url = `${Util.conexionBase()}/api/order/acepted/${this.datos.id}`;
-     
-    
+
+
         fetch(url, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
-       
+
         }).then(response => response.json())
             .then(data => {
                 new cartelAviso('Presupuest aceptado', 'h2');
@@ -555,15 +555,15 @@ class AceptarOrdenesClientes {
 
     ordenCancelar() {
         const url = `${Util.conexionBase()}/api/order/cancelorder/${this.datos.id}`;
-     
-    
+
+
         fetch(url, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
-       
+
         }).then(response => response.json())
             .then(data => {
                 new cartelAviso('Presupuest aceptado', 'h2');
@@ -599,23 +599,23 @@ class AceptarOrdenesClientesAprobada {
         this.textarea.rows = "8";
         this.textarea.readOnly = true;
         this.textarea.value = this.datos.description_professional;
-       
+
 
         this.precio = document.createElement('input');
         this.precio.type = "text";
         this.precio.readOnly = true;
-        this.precio.value = '$ '+this.datos.price;
+        this.precio.value = '$ ' + this.datos.price;
 
         const button = document.createElement('button');
         button.innerText = this.datos.orderstatus;
         button.addEventListener('click', () => {
-                new cartelAviso('Datos del profesional', 'h2'); 
+            new cartelAviso('Datos del profesional', 'h2');
         });
 
         const buttonCanelar = document.createElement('button');
         buttonCanelar.innerText = "Cancelar presupuesto";
         buttonCanelar.addEventListener('click', () => {
-            if (this.textarea.value !== '' && this.precio !=='') {
+            if (this.textarea.value !== '' && this.precio !== '') {
                 this.ordenCancelar();
                 const padre = div.parentNode;
                 padre.removeChild(div);
@@ -639,7 +639,7 @@ class AceptarOrdenesClientesAprobada {
             div.classList.add("aceptarOrden");
         });
 
-        div.append(buttonX, this.textarea, this.precio, button,buttonCanelar, descripcionOrden);
+        div.append(buttonX, this.textarea, this.precio, button, buttonCanelar, descripcionOrden);
         return div;
     }
     agregarAlFront() {
@@ -652,9 +652,9 @@ class AceptarOrdenesClientesAprobada {
             idProfessional: Util.reuperarLogin().id,
             descriptionProfessional: this.textarea.value,
             price: this.precio.value,
-           
+
         };
-    
+
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -677,15 +677,15 @@ class AceptarOrdenesClientesAprobada {
 
     ordenAceptarPresupuesto() {
         const url = `${Util.conexionBase()}/api/order/acepted/${this.datos.id}`;
-     
-    
+
+
         fetch(url, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
-       
+
         }).then(response => response.json())
             .then(data => {
                 new cartelAviso('Presupuest aceptado', 'h2');
@@ -701,15 +701,15 @@ class AceptarOrdenesClientesAprobada {
 
     ordenCancelar() {
         const url = `${Util.conexionBase()}/api/order/cancelorder/${this.datos.id}`;
-     
-    
+
+
         fetch(url, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
-       
+
         }).then(response => response.json())
             .then(data => {
                 new cartelAviso('Presupuest aceptado', 'h2');
@@ -728,10 +728,10 @@ class profesionalOrdenesPendienes {
     constructor(datoOrden, divPadre) {
         this.datos = datoOrden.order;
         this.client = {
-            id:datoOrden.client.id,
+            id: datoOrden.client.id,
             name: datoOrden.client.name,
-            lastname:datoOrden.client.lastname,
-            phone:datoOrden.client.phone
+            lastname: datoOrden.client.lastname,
+            phone: datoOrden.client.phone
         };
         this.professional = datoOrden[5];
         this.textarea;
@@ -751,30 +751,32 @@ class profesionalOrdenesPendienes {
         this.textarea.cols = "30";
         this.textarea.rows = "8";
         this.textarea.readOnly = true;
-        if(this.datos.orderstatus !=='Pendiente'){
-        this.textarea.value = ` cliente:
-                                nombre: ${this.client.name}
-                                apellido: ${this.client.lastname}
-                                telefono: ${this.client.phone}
+        this.textarea.value = `Comentario del profesional: ${this.datos.description_professional}`;
 
-                                Comentario del profesional: ${this.datos.description_professional}`;
-        }else{
-            this.textarea.value = `Comentario del profesional: ${this.datos.description_professional}`;
-        }
 
         this.precio = document.createElement('input');
         this.precio.type = "text";
         this.precio.readOnly = true;
-        this.precio.value = '$ '+this.datos.price;
+        this.precio.value = '$ ' + this.datos.price;
 
         const button = document.createElement('button');
-        button.innerText = this.datos.orderstatus;
+        if (this.datos.orderstatus !== 'Pendiente') {
+            button.innerText = 'Cliente'
+            const cliente = ` cliente:
+                                    nombre: ${this.client.name}
+                                    apellido: ${this.client.lastname}
+                                    telefono: ${this.client.phone}`;
+            button.addEventListener('click', () => new cartelAviso(cliente,'h2'))
+        } else {
+            button.innerText = this.datos.orderstatus;
+        }
+
 
 
         const buttonCanelar = document.createElement('button');
         buttonCanelar.innerText = "Cancelar presupuesto";
         buttonCanelar.addEventListener('click', () => {
-            if (this.textarea.value !== '' && this.precio !=='') {
+            if (this.textarea.value !== '' && this.precio !== '') {
                 this.ordenCancelar();
                 const padre = div.parentNode;
                 padre.removeChild(div);
@@ -798,7 +800,7 @@ class profesionalOrdenesPendienes {
             div.classList.add("aceptarOrden");
         });
 
-        div.append(buttonX, this.textarea, this.precio, button,buttonCanelar, descripcionOrden);
+        div.append(buttonX, this.textarea, this.precio, button, buttonCanelar, descripcionOrden);
         return div;
     }
     agregarAlFront() {
@@ -811,9 +813,9 @@ class profesionalOrdenesPendienes {
             idProfessional: Util.reuperarLogin().id,
             descriptionProfessional: this.textarea.value,
             price: this.precio.value,
-           
+
         };
-    
+
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -836,15 +838,15 @@ class profesionalOrdenesPendienes {
 
     ordenAceptarPresupuesto() {
         const url = `${Util.conexionBase()}/api/order/acepted/${this.datos.id}`;
-     
-    
+
+
         fetch(url, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
-       
+
         }).then(response => response.json())
             .then(data => {
                 new cartelAviso('Presupuest aceptado', 'h2');
@@ -860,15 +862,15 @@ class profesionalOrdenesPendienes {
 
     ordenCancelar() {
         const url = `${Util.conexionBase()}/api/order/cancelorder/${this.datos.id}`;
-     
-    
+
+
         fetch(url, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
-       
+
         }).then(response => response.json())
             .then(data => {
                 new cartelAviso('Orden cancelada', 'h2');
