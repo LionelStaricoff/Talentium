@@ -241,4 +241,12 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException(e);
         }
     }
+
+    public Page<Order> findOrdenesByClientIdInitial(Long id, Orderstatus orderstatus, PageRequest pageRequest) {
+        try {
+            return orderRepository.findOrdenesByClientIdInitial(id,  orderstatus, pageRequest).map(Order::new);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

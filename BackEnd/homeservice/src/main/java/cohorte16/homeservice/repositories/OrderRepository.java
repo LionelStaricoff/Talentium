@@ -1,5 +1,6 @@
 package cohorte16.homeservice.repositories;
 
+import cohorte16.homeservice.dtos.dtoOrderClientList;
 import cohorte16.homeservice.dtos.ordenProfessionalList;
 import cohorte16.homeservice.enums.Orderstatus;
 import cohorte16.homeservice.enums.Profession;
@@ -35,6 +36,9 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     Page<ordenProfessionalList>  findOrdenesByProfesionalIdPendiente(@Param("professionalId") Long professionalId, @Param("orderstatus") Orderstatus orderstatus, PageRequest pageRequest);
 
     @Query("SELECT NEW cohorte16.homeservice.dtos.dtoOrderClientList( o,o.professional.id,o.professional.name, o.professional.lastname, o.professional.profession,o.professional.rating, o.professional.user.id, o.professional.user.avatar )FROM Order o   WHERE o.client.id = :clientId AND o.orderstatus = :orderstatus")
-    Page<?> findOrdenesByClientIdPendiente(@Param("clientId")Long clientId,@Param("orderstatus")  Orderstatus orderstatus, PageRequest pageRequest);
+    Page<dtoOrderClientList> findOrdenesByClientIdPendiente(@Param("clientId")Long clientId, @Param("orderstatus")  Orderstatus orderstatus, PageRequest pageRequest);
+
+    @Query("SELECT o FROM Order o   WHERE o.client.id = :clientId AND o.orderstatus = :orderstatus")
+    Page<Order> findOrdenesByClientIdInitial(@Param("clientId")Long clientId,@Param("orderstatus")  Orderstatus orderstatus, PageRequest pageRequest);
 
 }

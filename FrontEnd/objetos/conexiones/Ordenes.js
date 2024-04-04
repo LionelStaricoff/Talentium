@@ -231,8 +231,8 @@ export class Ordenes {
                     data.content.forEach(d => {
                         let nuevaOrden;
                         console.log(d)
-                        if (d.orderstatus === "Pendiente") nuevaOrden = new AceptarOrdenesClientes(d, padreDto);
-                        if (d.orderstatus === "Aprobada") nuevaOrden = new AceptarOrdenesClientesAprobada(d, padreDto);
+                        if (d.order.orderstatus === "Pendiente") nuevaOrden = new AceptarOrdenesClientes(d, padreDto);
+                        if (d.order.orderstatus === "Aprobada") nuevaOrden = new AceptarOrdenesClientesAprobada(d, padreDto);
 
                         nuevaOrden.agregarAlFront();
                     });
@@ -428,11 +428,11 @@ class TomarOrdenesClientes {
 
 class AceptarOrdenesClientes {
     constructor(datoOrden, divPadre) {
-        this.datos = datoOrden;
+        this.datos = datoOrden.order;
         this.textarea;
         this.divPadre = divPadre ?? '#front';
-        this.comentario = datoOrden.comentarios ?? "";
-        this.description = datoOrden.description;
+        this.comentario = datoOrden.order.comentarios ?? "";
+        this.description = datoOrden.order.description;
         this.precio;
     }
 
@@ -582,7 +582,7 @@ class AceptarOrdenesClientes {
 
 class AceptarOrdenesClientesAprobada {
     constructor(datoOrden, divPadre) {
-        this.datos = datoOrden;
+        this.datos = datoOrden.order;
         this.textarea;
         this.divPadre = divPadre ?? '#front';
         this.comentario = datoOrden.comentarios ?? "";

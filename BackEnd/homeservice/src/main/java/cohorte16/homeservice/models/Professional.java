@@ -75,6 +75,7 @@ public class Professional {
     private List<Order> professional;
 
     public Professional( Long id, String name, String lastname, Profession profession, Integer rating, Long userId, String avatar) {
+
         this.id = id;
         this.name = name;
         this.lastname = lastname;
