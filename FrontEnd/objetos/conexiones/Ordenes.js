@@ -601,13 +601,16 @@ class profesionalOrdenesPendienes {
         this.textarea.cols = "30";
         this.textarea.rows = "8";
         this.textarea.readOnly = true;
+        if(this.datos.orderstatus !=='Pendiente'){
         this.textarea.value = ` cliente:
                                 nombre: ${this.client.name}
                                 apellido: ${this.client.lastname}
                                 telefono: ${this.client.phone}
 
                                 Comentario del profesional: ${this.datos.description_professional}`;
-    
+        }else{
+            this.textarea.value = `Comentario del profesional: ${this.datos.description_professional}`;
+        }
 
         this.precio = document.createElement('input');
         this.precio.type = "text";
