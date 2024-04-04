@@ -226,9 +226,9 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public Page<Order> findOrdenesByProfesionalIdPendiente(Long id,Orderstatus orderstatus, PageRequest pageRequest) {
+    public Page<?> findOrdenesByProfesionalIdPendiente(Long id,Orderstatus orderstatus, PageRequest pageRequest) {
         try {
-            return  orderRepository.findOrdenesByProfesionalIdPendiente(id,  orderstatus, pageRequest).map(Order::new);
+            return  orderRepository.findOrdenesByProfesionalIdPendiente(id,  orderstatus, pageRequest);//.map(Order::new);
         } catch (RuntimeException e) {
             throw new RuntimeException(e);
         }

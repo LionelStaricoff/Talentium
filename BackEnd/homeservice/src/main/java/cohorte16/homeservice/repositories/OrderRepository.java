@@ -30,8 +30,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o  WHERE o.professional.id = :professionalId")
     Page<Order> findOrdenesByProfesionalId(@Param("professionalId") Long professionalId, Pageable pageable);
 
-    @Query("SELECT DISTINCT  o   FROM Order o  WHERE o.professional.id = :professionalId AND o.orderstatus = :orderstatus")
-    Page<Order>  findOrdenesByProfesionalIdPendiente(@Param("professionalId") Long professionalId, @Param("orderstatus") Orderstatus orderstatus, PageRequest pageRequest);
+    @Query("SELECT NEW cohorte16.homeservice.dtos.ordenProfessionalList(o, o.client.name, o.client.lastname, o.client.phone,o.client.id )  FROM Order o WHERE o.professional.id = :professionalId AND o.orderstatus = :orderstatus GROUP BY o.id")
+    Page<?>  findOrdenesByProfesionalIdPendiente(@Param("professionalId") Long professionalId, @Param("orderstatus") Orderstatus orderstatus, PageRequest pageRequest);
 
     @Query("SELECT DISTINCT o FROM Order o   WHERE o.client.id = :clientId AND o.orderstatus = :orderstatus")
     Page<Order> findOrdenesByClientIdPendiente(@Param("clientId")Long clientId,@Param("orderstatus")  Orderstatus orderstatus, PageRequest pageRequest);
