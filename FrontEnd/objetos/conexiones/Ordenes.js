@@ -160,7 +160,7 @@ export class Ordenes {
     
             }).then(response => response.json())
                 .then(data => {
-    
+    console.log(data.content)
                     if (data.content.length > 0) {
                         data.content.forEach(d => {
                             const nuevaOrden = new profesionalOrdenesPendienes(d, padreDto);
@@ -576,7 +576,7 @@ class AceptarOrdenesClientes {
 
 class profesionalOrdenesPendienes {
     constructor(datoOrden, divPadre) {
-        this.datos = datoOrden[4];
+        this.datos = datoOrden;
         this.client = {
             id:datoOrden[0],
             name: datoOrden[1],
@@ -606,7 +606,7 @@ class profesionalOrdenesPendienes {
                                 apellido: ${this.client.lastname}
                                 telefono: ${this.client.phone}
 
-        ${this.datos.description_professional}`;
+                                Comentario del profesional: ${this.datos.description_professional}`;
     
 
         this.precio = document.createElement('input');
