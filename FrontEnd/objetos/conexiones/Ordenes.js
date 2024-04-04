@@ -230,8 +230,8 @@ export class Ordenes {
                     data.content.forEach(d => {
                         let nuevaOrden;
                         console.log(d)
-                        if (d.orderstatus = "Pendiente") nuevaOrden = new AceptarOrdenesClientes(d, padreDto);
-                        if (d.orderstatus = "Aprobada") nuevaOrden = new AceptarOrdenesClientesAprobada(d, padreDto);
+                        if (d.orderstatus === "Pendiente") nuevaOrden = new AceptarOrdenesClientes(d, padreDto);
+                        if (d.orderstatus === "Aprobada") nuevaOrden = new AceptarOrdenesClientesAprobada(d, padreDto);
 
                         nuevaOrden.agregarAlFront();
                     });
