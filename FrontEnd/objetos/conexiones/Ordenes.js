@@ -267,11 +267,12 @@ class OrdenesClientes {
         this.textarea.cols = "30";
         this.textarea.rows = "8";
         this.textarea.readOnly = true;
-        this.textarea.value = this.datos.orderstatus;
-        /*
+        this.textarea.value = this.datos.description_professional;
+        
                 this.precio = document.createElement('input');
-                this.precio.type = "number";
-                this.precio.placeholder = '$$$';*/
+                this.precio.type = "text";
+                this.precio.readOnly = true;
+                this.precio.placeholder ='Status: '+ this.datos.orderstatus
 
         const button = document.createElement('button');
         button.innerText = "Eliminar";
@@ -295,7 +296,7 @@ class OrdenesClientes {
             div.classList.add("aceptarOrden");
         });
 
-        div.append(buttonX, this.textarea, /*this.precio,*/ button, descripcionOrden);
+        div.append(buttonX, this.textarea, this.precio, button, descripcionOrden);
         return div;
     }
     agregarAlFront() {
