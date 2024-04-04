@@ -228,7 +228,11 @@ export class Ordenes {
                 if (data.content.length > 0) {
                  
                     data.content.forEach(d => {
-                        const nuevaOrden = new AceptarOrdenesClientes(d, padreDto);
+                        let nuevaOrden;
+                        console.log(d)
+                        if(d.orderstatus = "Pendiente") nuevaOrden = new AceptarOrdenesClientes(d, padreDto);
+                        if(d.orderstatus = "Aprobada") nuevaOrden = new AceptarOrdenesClientesAprobada(d, padreDto);
+
                         nuevaOrden.agregarAlFront();
                     });
 
@@ -422,6 +426,159 @@ class TomarOrdenesClientes {
 }
 
 class AceptarOrdenesClientes {
+    constructor(datoOrden, divPadre) {
+        this.datos = datoOrden;
+        this.textarea;
+        this.divPadre = divPadre ?? '#front';
+        this.comentario = datoOrden.comentarios ?? "";
+        this.description = datoOrden.description;
+        this.precio;
+    }
+
+    crearOrden() {
+        const div = document.createElement('div');
+        div.classList.add("CrearOrden");
+
+        this.textarea = document.createElement('textarea');
+        this.textarea.name = "descripcion";
+        this.textarea.placeholder = 'comentario';
+        this.textarea.cols = "30";
+        this.textarea.rows = "8";
+        this.textarea.readOnly = true;
+        this.textarea.value = this.datos.description_professional;
+       
+
+        this.precio = document.createElement('input');
+        this.precio.type = "text";
+        this.precio.readOnly = true;
+        this.precio.value = '$ '+this.datos.price;
+
+        const button = document.createElement('button');
+        button.innerText = "Aceptar presupuesto";
+        button.addEventListener('click', () => {
+            if (this.textarea.value !== '' && this.precio !=='') {
+                this.ordenAceptarPresupuesto();
+                const padre = div.parentNode;
+                padre.removeChild(div);
+            } else {
+                new cartelAviso('Los campos no pueden estar vacíos', 'h2');
+            }
+
+        });
+
+        const buttonCanelar = document.createElement('button');
+        buttonCanelar.innerText = "Cancelar presupuesto";
+        buttonCanelar.addEventListener('click', () => {
+            if (this.textarea.value !== '' && this.precio !=='') {
+                this.ordenCancelar();
+                const padre = div.parentNode;
+                padre.removeChild(div);
+            } else {
+                new cartelAviso('Los campos no pueden estar vacíos', 'h2');
+            }
+
+        });
+
+        const buttonX = document.createElement('button');
+        buttonX.innerText = "X";
+        buttonX.addEventListener('click', () => {
+            div.classList.remove('aceptarOrden');
+            div.classList.add("CrearOrden");
+        });
+
+        const descripcionOrden = document.createElement('div');
+        descripcionOrden.innerText = this.description;
+        descripcionOrden.addEventListener('click', () => {
+            div.classList.remove('CrearOrden');
+            div.classList.add("aceptarOrden");
+        });
+
+        div.append(buttonX, this.textarea, this.precio, button,buttonCanelar, descripcionOrden);
+        return div;
+    }
+    agregarAlFront() {
+        const main = document.querySelector(this.divPadre);
+        main.appendChild(this.crearOrden());
+    }
+    tomarOrden() {
+        const url = `${Util.conexionBase()}/api/order/${this.datos.id}`;
+        const userData = {
+            idProfessional: Util.reuperarLogin().id,
+            descriptionProfessional: this.textarea.value,
+            price: this.precio.value,
+           
+        };
+    
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+            body: JSON.stringify(userData)
+        }).then(response => response.json())
+            .then(data => {
+                new cartelAviso('Orden tomada', 'h2');
+
+            }
+            ).catch(err => {
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+
+            });
+
+
+    }
+
+    ordenAceptarPresupuesto() {
+        const url = `${Util.conexionBase()}/api/order/acepted/${this.datos.id}`;
+     
+    
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+       
+        }).then(response => response.json())
+            .then(data => {
+                new cartelAviso('Presupuest aceptado', 'h2');
+
+            }
+            ).catch(err => {
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+
+            });
+
+
+    }
+
+    ordenCancelar() {
+        const url = `${Util.conexionBase()}/api/order/cancelorder/${this.datos.id}`;
+     
+    
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+       
+        }).then(response => response.json())
+            .then(data => {
+                new cartelAviso('Presupuest aceptado', 'h2');
+
+            }
+            ).catch(err => {
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+
+            });
+
+
+    }
+}
+
+class AceptarOrdenesClientesAprobada {
     constructor(datoOrden, divPadre) {
         this.datos = datoOrden;
         this.textarea;
