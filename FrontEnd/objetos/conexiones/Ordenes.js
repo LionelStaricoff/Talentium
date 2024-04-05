@@ -164,7 +164,7 @@ export class Ordenes {
 
                 if (data.content.length > 0) {
                     data.content.forEach(d => {
-                        const nuevaOrden = (d.order.orderstatus === "Finalizada")?  new OrdenesClientesFinalizada(d, padreDto) :  new profesionalOrdenesPendienes(d, padreDto);
+                        const nuevaOrden = (d.order.orderstatus === "Finalizada") ? new OrdenesClientesFinalizada(d, padreDto) : new profesionalOrdenesPendienes(d, padreDto);
                         nuevaOrden.agregarAlFront();
                     });
 
@@ -429,11 +429,13 @@ class TomarOrdenesClientes {
 class AceptarOrdenesClientes {
     constructor(datoOrden, divPadre) {
         this.datos = datoOrden.order;
+        this.datosCompletos = datoOrden;
         this.textarea;
         this.divPadre = divPadre ?? '#front';
         this.comentario = datoOrden.order.comentarios ?? "";
         this.description = datoOrden.order.description;
         this.precio;
+
     }
 
     crearOrden() {
@@ -458,10 +460,18 @@ class AceptarOrdenesClientes {
         button.innerText = "Aceptar presupuesto";
         button.addEventListener('click', () => {
             if (this.textarea.value !== '' && this.precio !== '') {
-               // new Presupuesto(this.datos, 'h2');
-                this.ordenAceptarPresupuesto();
-                const padre = div.parentNode;
-                padre.removeChild(div);
+                new Presupuesto(this.datosCompletos, 'h2');
+                const btnContinuar = document.querySelector(".boton_centrado");
+                const divPadre = document.querySelector(".contenido-metodo-pago")
+                btnContinuar.addEventListener('click', () => {
+                    this.ordenAceptarPresupuesto();
+                    const padre = div.parentNode;
+                    padre.removeChild(div)
+                    const padreDiv = divPadre.parentNode;
+                    padreDiv.removeChild(divPadre)
+                });
+
+                ;
             } else {
                 new cartelAviso('Los campos no pueden estar vacíos', 'h2');
             }
@@ -544,11 +554,11 @@ class AceptarOrdenesClientes {
 
         }).then(response => response.json())
             .then(data => {
-                new cartelAviso('Presupuest aceptado', 'h2');
+                new cartelAviso('Presupuesto aceptado', 'h2');
 
             }
             ).catch(err => {
-                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+                new cartelAviso('Ups!! Algo salió mal, intenta más tarde', 'h2');
 
             });
 
@@ -590,12 +600,12 @@ class AceptarOrdenesClientesAprobada {
         this.description = datoOrden.order.description;
         this.precio;
         this.professional = {
-           name : datoOrden.professional.name,
-           lastname: datoOrden.professional.lastname,
-           profession: datoOrden.professional.profession,
-           rating : datoOrden.professional.rating ?? '',
-           avatar : datoOrden.professional.user.avatar,
-           phone : datoOrden.professional.phone
+            name: datoOrden.professional.name,
+            lastname: datoOrden.professional.lastname,
+            profession: datoOrden.professional.profession,
+            rating: datoOrden.professional.rating ?? '',
+            avatar: datoOrden.professional.user.avatar,
+            phone: datoOrden.professional.phone
         }
     }
 
@@ -620,7 +630,7 @@ class AceptarOrdenesClientesAprobada {
         const button = document.createElement('button');
         button.innerText = 'Profesional';
         button.addEventListener('click', () => {
-            const datoCartel =`
+            const datoCartel = `
             ${this.professional.name} ${this.professional.lastname}
             telefono: ${this.professional.phone}
             Rating: ${this.professional.rating}
@@ -631,7 +641,7 @@ class AceptarOrdenesClientesAprobada {
         const buttonFinalizar = document.createElement('button');
         buttonFinalizar.innerText = 'Trabajo finalizado';
         buttonFinalizar.addEventListener('click', () => {
-           this.ordenFinalizada();
+            this.ordenFinalizada();
         });
 
         const buttonCanelar = document.createElement('button');
@@ -661,7 +671,7 @@ class AceptarOrdenesClientesAprobada {
             this.div.classList.add("aceptarOrden");
         });
 
-        this.div.append(buttonX, this.textarea, this.precio, button,buttonFinalizar, buttonCanelar, descripcionOrden);
+        this.div.append(buttonX, this.textarea, this.precio, button, buttonFinalizar, buttonCanelar, descripcionOrden);
         return this.div;
     }
     agregarAlFront() {
@@ -745,7 +755,7 @@ class AceptarOrdenesClientesAprobada {
 
     }
 
-    ordenFinalizada(){
+    ordenFinalizada() {
         const url = `${Util.conexionBase()}/api/order/finalizada/${this.datos.id}`;
 
         fetch(url, {
@@ -754,7 +764,7 @@ class AceptarOrdenesClientesAprobada {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer${Util.reuperarAuthorization()}`
             },
-          
+
         }).then(response => response.json())
             .then(data => {
                 const padre = this.div.parentNode;
@@ -766,7 +776,7 @@ class AceptarOrdenesClientesAprobada {
                 new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
 
             });
-        
+
     }
 }
 
@@ -800,11 +810,11 @@ class OrdenesClientesFinalizada {
 
         const button = document.createElement('button');
         button.innerText = this.datos.orderstatus;
-        button.addEventListener('click', () => { 
-                new cartelAviso('Orden finalizada', 'h2');
+        button.addEventListener('click', () => {
+            new cartelAviso('Orden finalizada', 'h2');
         });
 
-      
+
 
         const buttonX = document.createElement('button');
         buttonX.innerText = "X";
@@ -947,7 +957,7 @@ class profesionalOrdenesPendienes {
                                     nombre: ${this.client.name}
                                     apellido: ${this.client.lastname}
                                     telefono: ${this.client.phone}`;
-            button.addEventListener('click', () => new cartelAviso(cliente,'h2'))
+            button.addEventListener('click', () => new cartelAviso(cliente, 'h2'))
         } else {
             button.innerText = this.datos.orderstatus;
         }
@@ -1065,6 +1075,6 @@ class profesionalOrdenesPendienes {
 
     }
 
-   
+
 }
 
