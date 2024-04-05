@@ -586,8 +586,16 @@ class AceptarOrdenesClientesAprobada {
         this.textarea;
         this.divPadre = divPadre ?? '#front';
         this.comentario = datoOrden.comentarios ?? "";
-        this.description = datoOrden.description;
+        this.description = datoOrden.order.description;
         this.precio;
+        this.professional = {
+           name : datoOrden.professional.name,
+           lastname: datoOrden.professional.lastname,
+           profession: datoOrden.professional.profession,
+           rating : datoOrden.professional.rating ?? '',
+           avatar : datoOrden.professional.user.avatar,
+           phone : datoOrden.professional.phone
+        }
     }
 
     crearOrden() {
@@ -609,9 +617,14 @@ class AceptarOrdenesClientesAprobada {
         this.precio.value = '$ ' + this.datos.price;
 
         const button = document.createElement('button');
-        button.innerText = this.datos.orderstatus;
+        button.innerText = 'Profesional';
         button.addEventListener('click', () => {
-            new cartelAviso('Datos del profesional', 'h2');
+            const datoCartel =`
+            ${this.professional.name} ${this.professional.lastname}
+            telefono: ${this.professional.phone}
+            Rating: ${this.professional.rating}
+            `
+            new cartelAviso(datoCartel, 'h2');
         });
 
         const buttonCanelar = document.createElement('button');

@@ -9,9 +9,9 @@ import cohorte16.homeservice.models.User;
 public record dtoOrderClientList(Order order, Professional professional) {
 
     public dtoOrderClientList(Order order,Long id, String name, String lastname, Profession profession,
-                              Integer rating, Long userId,String avatar){
+                              Integer rating, Long userId,String avatar, String phone){
 
-        this(order, new Professional( id,  name,  lastname,  profession, rating,  userId, avatar));
+        this(order, new Professional( id,  name,  lastname,  profession, rating,  userId, avatar, phone));
     }
 
 }
