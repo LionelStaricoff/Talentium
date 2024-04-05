@@ -1,7 +1,7 @@
 import { cartelAviso } from '../cartel_aceptar_cancelar/cartelAviso.js';
 import { Util } from '../Util.js';
 import { Presupuesto } from '../vista_Plataforma_pago/presupuesto.js';
-
+//import { Presupuesto } from '../Ratings/rating.js';
 
 export class Ordenes {
     constructor(dato, divPadre) {
@@ -458,8 +458,8 @@ class AceptarOrdenesClientes {
         button.innerText = "Aceptar presupuesto";
         button.addEventListener('click', () => {
             if (this.textarea.value !== '' && this.precio !== '') {
-                new Presupuesto(this.datos, 'h2');
-              //  this.ordenAceptarPresupuesto();
+               // new Presupuesto(this.datos, 'h2');
+                this.ordenAceptarPresupuesto();
                 const padre = div.parentNode;
                 padre.removeChild(div);
             } else {
@@ -582,6 +582,7 @@ class AceptarOrdenesClientes {
 
 class AceptarOrdenesClientesAprobada {
     constructor(datoOrden, divPadre) {
+        this.div;
         this.datos = datoOrden.order;
         this.textarea;
         this.divPadre = divPadre ?? '#front';
@@ -599,8 +600,8 @@ class AceptarOrdenesClientesAprobada {
     }
 
     crearOrden() {
-        const div = document.createElement('div');
-        div.classList.add("CrearOrden");
+        this.div = document.createElement('div');
+        this.div.classList.add("CrearOrden");
 
         this.textarea = document.createElement('textarea');
         this.textarea.name = "descripcion";
@@ -627,6 +628,12 @@ class AceptarOrdenesClientesAprobada {
             new cartelAviso(datoCartel, 'h2');
         });
 
+        const buttonFinalizar = document.createElement('button');
+        buttonFinalizar.innerText = 'Trabajo finalizado';
+        buttonFinalizar.addEventListener('click', () => {
+           this.ordenFinalizada();
+        });
+
         const buttonCanelar = document.createElement('button');
         buttonCanelar.innerText = "Cancelar presupuesto";
         buttonCanelar.addEventListener('click', () => {
@@ -643,19 +650,19 @@ class AceptarOrdenesClientesAprobada {
         const buttonX = document.createElement('button');
         buttonX.innerText = "X";
         buttonX.addEventListener('click', () => {
-            div.classList.remove('aceptarOrden');
-            div.classList.add("CrearOrden");
+            this.div.classList.remove('aceptarOrden');
+            this.div.classList.add("CrearOrden");
         });
 
         const descripcionOrden = document.createElement('div');
         descripcionOrden.innerText = this.description;
         descripcionOrden.addEventListener('click', () => {
-            div.classList.remove('CrearOrden');
-            div.classList.add("aceptarOrden");
+            this.div.classList.remove('CrearOrden');
+            this.div.classList.add("aceptarOrden");
         });
 
-        div.append(buttonX, this.textarea, this.precio, button, buttonCanelar, descripcionOrden);
-        return div;
+        this.div.append(buttonX, this.textarea, this.precio, button,buttonFinalizar, buttonCanelar, descripcionOrden);
+        return this.div;
     }
     agregarAlFront() {
         const main = document.querySelector(this.divPadre);
@@ -736,6 +743,30 @@ class AceptarOrdenesClientesAprobada {
             });
 
 
+    }
+
+    ordenFinalizada(){
+        const url = `${Util.conexionBase()}/api/order/finalizada/${this.datos.id}`;
+
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer${Util.reuperarAuthorization()}`
+            },
+          
+        }).then(response => response.json())
+            .then(data => {
+                const padre = this.div.parentNode;
+                padre.removeChild(this.div);
+                new cartelAviso('Orden finalizada', 'h2');
+
+            }
+            ).catch(err => {
+                new cartelAviso('Ups!! algo salio mal, intenta más tarde', 'h2');
+
+            });
+        
     }
 }
 
@@ -898,4 +929,6 @@ class profesionalOrdenesPendienes {
 
 
     }
+
+   
 }
