@@ -168,6 +168,19 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+
+    public OrderAceptedDTO orderFinalizada(Long id) {
+        try {
+            Order exintingOrder = orderRepository.findById(id)
+                    .orElseThrow(() -> new EntityNotFoundException("Order not found"));
+            exintingOrder.setOrderstatus(Orderstatus.Finalizada);
+            Order orderSaved = orderRepository.save(exintingOrder);
+            return orderMapper.orderToOrderAceptedDTO(orderSaved);
+        } catch (ServiceException e) {
+            throw new ServiceException(e.getMessage());
+        }
+    }
+
     /*
      * Revisar porque viajan null con entidades completas y no dto
      * */

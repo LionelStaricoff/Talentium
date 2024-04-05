@@ -171,6 +171,15 @@ public class OrderController {
         }
     }
 
+    @PatchMapping(value = "/finalizada/{id}", produces = "application/json")
+    public ResponseEntity<?> finalizadaOrder( @Valid @PathVariable Long id){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(orderService.orderFinalizada(id));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error! Something went wrong");
+        }
+    }
+
     @PatchMapping(value = "/cancelorder/{id}",produces = "application/json")
     public ResponseEntity<?> cancelOrderOfProfessional(@PathVariable Long id){
         try{
