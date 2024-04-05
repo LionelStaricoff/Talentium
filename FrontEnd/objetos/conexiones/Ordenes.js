@@ -164,7 +164,7 @@ export class Ordenes {
 
                 if (data.content.length > 0) {
                     data.content.forEach(d => {
-                        const nuevaOrden = new profesionalOrdenesPendienes(d, padreDto);
+                        const nuevaOrden = (d.order.orderstatus === "Finalizada")?  new OrdenesClientesFinalizada(d, padreDto) :  new profesionalOrdenesPendienes(d, padreDto);
                         nuevaOrden.agregarAlFront();
                     });
 
