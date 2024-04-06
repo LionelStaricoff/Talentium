@@ -813,9 +813,9 @@ class OrdenesClientesFinalizada {
         this.precio.value = '$ ' + this.datos.price;
 
         const button = document.createElement('button');
-        button.innerText = this.datos.orderstatus;
+        button.innerText = 'Califica al cliente';
         button.addEventListener('click', () => {
-            new cartelAviso('Orden finalizada', 'h2');
+            new CartelPuntuar(this.datos.id, 'h2', 'client');
         });
 
 
