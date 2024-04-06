@@ -1,7 +1,7 @@
 import { cartelAviso } from '../cartel_aceptar_cancelar/cartelAviso.js';
 import { Util } from '../Util.js';
 import { Presupuesto } from '../vista_Plataforma_pago/presupuesto.js';
-//import { Presupuesto } from '../Ratings/rating.js';
+import { CartelPuntuar } from '../vista_profesional_ordene_aprobada_por_el_cliente/js/cartelPuntuar.js';
 
 export class Ordenes {
     constructor(dato, divPadre) {
@@ -25,7 +25,7 @@ export class Ordenes {
         const button = document.createElement('button');
         button.innerText = "Crear";
         button.addEventListener('click', () => {
-            //  console.log(this.datos);
+
             const textareaFront = document.querySelector('textarea');
             this.textarea = textareaFront.value;
             if (this.textarea !== '' && this.textarea !== undefined) {
@@ -225,12 +225,12 @@ export class Ordenes {
 
         }).then(response => response.json())
             .then(data => {
-                console.log(data)
+
                 if (data.content.length > 0) {
 
                     data.content.forEach(d => {
                         let nuevaOrden;
-                        console.log(d)
+
                         if (d.order.orderstatus === "Pendiente") nuevaOrden = new AceptarOrdenesClientes(d, padreDto);
                         if (d.order.orderstatus === "Aprobada") nuevaOrden = new AceptarOrdenesClientesAprobada(d, padreDto);
                         if (d.order.orderstatus === "Finalizada") nuevaOrden = new OrdenesClientesFinalizada(d, padreDto);
@@ -600,6 +600,7 @@ class AceptarOrdenesClientesAprobada {
         this.description = datoOrden.order.description;
         this.precio;
         this.professional = {
+            id: datoOrden.professional.id,
             name: datoOrden.professional.name,
             lastname: datoOrden.professional.lastname,
             profession: datoOrden.professional.profession,
@@ -641,6 +642,8 @@ class AceptarOrdenesClientesAprobada {
         const buttonFinalizar = document.createElement('button');
         buttonFinalizar.innerText = 'Trabajo finalizado';
         buttonFinalizar.addEventListener('click', () => {
+          
+
             this.ordenFinalizada();
         });
 
@@ -769,7 +772,8 @@ class AceptarOrdenesClientesAprobada {
             .then(data => {
                 const padre = this.div.parentNode;
                 padre.removeChild(this.div);
-                new cartelAviso('Orden finalizada', 'h2');
+               // new cartelAviso('Orden finalizada', 'h2');
+               new CartelPuntuar(this.datos.id, 'h2', 'professional');
 
             }
             ).catch(err => {

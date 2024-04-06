@@ -148,7 +148,7 @@ public class OrderController {
         try{
             return ResponseEntity.status(HttpStatus.OK).body(orderService.updateRating(updateOrderDTO));
         }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error! Something went wrong");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
         }
     }
 
